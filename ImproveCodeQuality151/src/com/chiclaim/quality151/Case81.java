@@ -17,7 +17,7 @@ public class Case81 {
         set.add(new Person(175));
 
         //修改身高
-        set.first().setHeight(185);//书上运行的结果是[175,、180]，我运行的结果是[185、180]，不管怎么样都没从新排序
+        set.first().setHeight(185);//书上运行的结果是[175,、180]，我运行的结果是[185、180]，不管怎么样都没重新排序
 
         //1，set重排序
         //set=new TreeSet<>(new ArrayList<Person>(set));
