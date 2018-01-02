@@ -21,7 +21,7 @@ public class Case127 {
 
     //示例中的代码，提交任务（es.submit）的时候，是每次都new一个任务，而Lock是一个全局变量，这样一个任务一个锁，显示锁是对象级别的锁，而内部锁是类级别的锁，也就说说Lock锁是跟随对象的，synchronized锁是跟随类的，所以没有起到互斥的作用。
 
-    //我们也可以把内部锁改成使用this的方式，如 synchronized ("A")，这样synchronized也起不到互斥的作用
+    //我们也可以把内部锁改成使用this的方式，如 synchronized (this)，这样synchronized也起不到互斥的作用
 
     //我们可以在提交任务的时候（es.submit(runnable)），提交相同的对象，这样就会公用一个锁(Lock)。
 
