@@ -7,7 +7,7 @@ import java.util.Iterator;
  * 实现一个简易的线性表（顺序存储）
  * Created by Chiclaim on 2018/3/5.
  */
-public class SequenceList<T> implements Iterable<T> {
+public class SequenceList<T> implements Iterable<T>, List<T> {
 
     private static final int DEFAULT_SIZE = 16;
 
@@ -65,6 +65,7 @@ public class SequenceList<T> implements Iterable<T> {
      *
      * @param t
      */
+    @Override
     public void add(T t) {
         add(t, size);
     }
@@ -75,6 +76,7 @@ public class SequenceList<T> implements Iterable<T> {
      * @param t
      * @param index
      */
+    @Override
     public void add(T t, int index) {
         checkIndexOutOfBound(index, size);
         ensureSize(capacity + 1);
@@ -89,6 +91,7 @@ public class SequenceList<T> implements Iterable<T> {
      * @param index
      * @return
      */
+    @Override
     public T get(int index) {
         checkIndexOutOfBound(index, size - 1);
         return (T) array[index];
@@ -100,6 +103,7 @@ public class SequenceList<T> implements Iterable<T> {
      * @param t
      * @return
      */
+    @Override
     public int indexOf(T t) {
         for (int i = 0; i < size; i++) {
             Object obj = array[i];
@@ -119,6 +123,7 @@ public class SequenceList<T> implements Iterable<T> {
      * @param t
      * @return
      */
+    @Override
     public boolean remove(T t) {
         int index = indexOf(t);
         if (index != -1) {
@@ -133,6 +138,7 @@ public class SequenceList<T> implements Iterable<T> {
      * @param index
      * @return
      */
+    @Override
     public T remove(int index) {
         checkIndexOutOfBound(index, size - 1);
         T oldValue = (T) array[index];
@@ -150,6 +156,7 @@ public class SequenceList<T> implements Iterable<T> {
     /**
      * 清空所有元素
      */
+    @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
             array[i] = null;
@@ -157,6 +164,7 @@ public class SequenceList<T> implements Iterable<T> {
         size = 0;
     }
 
+    @Override
     public int size() {
         return size;
     }
@@ -224,7 +232,7 @@ public class SequenceList<T> implements Iterable<T> {
 
     }
 
-    private static void print(SequenceList<String> list) {
+    private static void print(List<String> list) {
         System.out.println(list);
     }
 }
