@@ -7,7 +7,7 @@ import java.util.Iterator;
  * 实现一个简易的线性表（顺序存储）
  * Created by Chiclaim on 2018/3/5.
  */
-public class SequenceList<T> implements Iterable<T>, List<T> {
+public class SequenceList<T> implements List<T> {
 
     private static final int DEFAULT_SIZE = 16;
 

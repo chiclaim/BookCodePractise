@@ -3,7 +3,7 @@ package com.chiclaim.data.structure;
 /**
  * Created by Chiclaim on 2018/3/7.
  */
-public interface List<T> {
+public interface List<T> extends Iterable<T>{
     void add(T t);
 
     void add(T t, int index);

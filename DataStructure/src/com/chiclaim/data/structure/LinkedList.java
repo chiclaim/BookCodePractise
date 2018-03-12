@@ -1,5 +1,7 @@
 package com.chiclaim.data.structure;
 
+import java.util.Iterator;
+
 /**
  * 实现一个简易的线性表（链式存储）
  * Created by Chiclaim on 2018/3/7.
@@ -10,6 +12,25 @@ public class LinkedList<T> implements List<T> {
 
     private Node header;
     private Node tail;
+
+    @Override
+    public Iterator<T> iterator() {
+        return new MyIterator();
+    }
+
+    class MyIterator implements Iterator<T> {
+
+        private int index = 0;
+
+        public boolean hasNext() {
+            return index < size();
+        }
+
+        public T next() {
+            return get(index++);
+        }
+    }
+
 
     /**
      * 用于保存每个节点数据
@@ -62,12 +83,17 @@ public class LinkedList<T> implements List<T> {
     @Override
     public void add(T t, int index) {
         checkIndexOutOfBound(index, size);
-        if () {
-
+        if (header == null) {
+            add(t);
+        } else {
+            if (index == 0) {
+                addToHeader(t);
+            } else {
+                Node prevNode = getNodeByIndex(index - 1);
+                prevNode.next = new Node(t, prevNode.next);
+                size++;
+            }
         }
-
-
-        size++;
     }
 
     /**
@@ -160,5 +186,51 @@ public class LinkedList<T> implements List<T> {
         return size;
     }
 
+
+    public static void main(String[] args) {
+        LinkedList<String> linkedList = new LinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            linkedList.add(i + "");
+        }
+
+        System.out.println("for index方式遍历：");
+        forEach(linkedList);
+
+        System.out.println("forEach方式遍历：");
+        for (int i = 0; i < linkedList.size(); i++) {
+            System.out.print(linkedList.get(i));
+        }
+        System.out.println();
+
+        System.out.println("集合大小：" + linkedList.size());
+
+        //删除元素1
+        linkedList.remove("1");
+        forEach(linkedList);
+
+        //删除index=1的元素
+        linkedList.remove(1);
+        forEach(linkedList);
+        System.out.println("集合大小：" + linkedList.size());
+
+        System.out.println("元素为9的索引：" + linkedList.indexOf("9"));
+
+        linkedList.add("1", 1);
+        linkedList.add("2", 2);
+        forEach(linkedList);
+
+        linkedList.addToHeader("-1 ");
+        forEach(linkedList);
+
+        linkedList.clear();
+        System.out.println("clear()后的集合大小：" + linkedList.size());
+    }
+
+    private static void forEach(List<String> linkedList) {
+        for (String str : linkedList) {
+            System.out.print(str);
+        }
+        System.out.println();
+    }
 
 }
