@@ -3,10 +3,10 @@ package com.chiclaim.data.structure;
 import java.util.Iterator;
 
 /**
- * 实现一个简易的线性表（单向链表）
- * Created by Chiclaim on 2018/3/7.
+ * 实现一个简易的线性表（双向链表）
+ * Created by Chiclaim on 2018/3/12.
  */
-public class LinkedList<T> implements List<T> {
+public class DuplexLinkedList<T> implements List<T> {
 
     private int size;
 
@@ -37,11 +37,25 @@ public class LinkedList<T> implements List<T> {
      */
     private class Node {
         private T element;
+        private Node prev;
         private Node next;
 
-        Node(T element, Node next) {
+        Node(T element, Node next, Node prev) {
             this.element = element;
             this.next = next;
+            this.prev = prev;
+        }
+
+        public T getElement() {
+            return element;
+        }
+
+        public Node getPrev() {
+            return prev;
+        }
+
+        public Node getNext() {
+            return next;
         }
     }
 
@@ -68,9 +82,9 @@ public class LinkedList<T> implements List<T> {
         //空链表
         if (header == null) {
             //首尾都指向新的节点
-            tail = header = new Node(t, null);
+            tail = header = new Node(t, null, null);
         } else {
-            Node newNode = new Node(t, null);
+            Node newNode = new Node(t, null, tail);
             //让尾部的next指向新的节点
             tail.next = newNode;
             //把尾部设置为新的节点
@@ -90,7 +104,7 @@ public class LinkedList<T> implements List<T> {
                 addToHeader(t);
             } else {
                 Node prevNode = getNodeByIndex(index - 1);
-                prevNode.next = new Node(t, prevNode.next);
+                prevNode.next = new Node(t, prevNode.next, prevNode);
                 size++;
             }
         }
@@ -102,7 +116,7 @@ public class LinkedList<T> implements List<T> {
      * @param element
      */
     public void addToHeader(T element) {
-        header = new Node(element, header);
+        header = new Node(element, header, null);
         if (tail == null) {
             tail = header;
         }
@@ -188,7 +202,7 @@ public class LinkedList<T> implements List<T> {
 
 
     public static void main(String[] args) {
-        LinkedList<String> linkedList = new LinkedList<>();
+        DuplexLinkedList<String> linkedList = new DuplexLinkedList<>();
         for (int i = 0; i < 10; i++) {
             linkedList.add(i + "");
         }
@@ -203,6 +217,7 @@ public class LinkedList<T> implements List<T> {
         System.out.println();
 
         System.out.println("集合大小：" + linkedList.size());
+
 
         //删除元素1
         linkedList.remove("1");
