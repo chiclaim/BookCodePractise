@@ -166,8 +166,11 @@ public class DuplexLinkedList<T> implements List<T> {
     @Override
     public boolean remove(T t) {
         int index = indexOf(t);
+        if (index == -1) {
+            return false;
+        }
         remove(index);
-        return index != -1;
+        return false;
     }
 
     @Override

@@ -152,8 +152,11 @@ public class LinkedList<T> implements List<T> {
     @Override
     public boolean remove(T t) {
         int index = indexOf(t);
+        if (index == -1) {
+            return false;
+        }
         remove(index);
-        return index != -1;
+        return true;
     }
 
     @Override
@@ -189,7 +192,7 @@ public class LinkedList<T> implements List<T> {
 
     public static void main(String[] args) {
         LinkedList<String> linkedList = new LinkedList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             linkedList.add(i + "");
         }
 
