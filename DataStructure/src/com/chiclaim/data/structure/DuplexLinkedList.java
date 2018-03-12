@@ -20,14 +20,16 @@ public class DuplexLinkedList<T> implements List<T> {
 
     class MyIterator implements Iterator<T> {
 
-        private int index = 0;
+        private Node current = header;
 
         public boolean hasNext() {
-            return index < size();
+            return current != null;
         }
 
         public T next() {
-            return get(index++);
+            T element = current.element;
+            current = current.next;
+            return element;
         }
     }
 

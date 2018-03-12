@@ -20,14 +20,16 @@ public class LinkedList<T> implements List<T> {
 
     class MyIterator implements Iterator<T> {
 
-        private int index = 0;
+        private Node current = header;
 
         public boolean hasNext() {
-            return index < size();
+            return current != null;
         }
 
         public T next() {
-            return get(index++);
+            T element = current.element;
+            current = current.next;
+            return element;
         }
     }
 
@@ -192,7 +194,7 @@ public class LinkedList<T> implements List<T> {
 
     public static void main(String[] args) {
         LinkedList<String> linkedList = new LinkedList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             linkedList.add(i + "");
         }
 
