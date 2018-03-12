@@ -135,6 +135,17 @@ public class SequenceStack<T> implements Iterable<T> {
         for (String str : stack) {
             System.out.println(str);
         }
+        System.out.println("栈大小：" + stack.size);
+        System.out.println("弹出栈顶元素：" + stack.pop());
+        for (String str : stack) {
+            System.out.println(str);
+        }
+        System.out.println("栈大小：" + stack.size);
+
+        System.out.println("Peek栈顶元素：" + stack.peek());
+
+        stack.clear();
+        System.out.println("栈大小：" + stack.size);
 
     }
 
