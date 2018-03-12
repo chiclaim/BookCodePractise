@@ -1,5 +1,6 @@
 package com.chiclaim.data.structure;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -8,6 +9,16 @@ import java.util.Iterator;
  * 队列只允许在队列的前端（front）删除元素，在队列的尾端（rear）插入元素
  * <p>
  * 顺序存储的队列 通过front和rear两个整型变量来分别记录队列front端的元素索引和rear端的元素索引
+ * <p>
+ * 简易顺序队列出现的"假满"：当往队列里插满元素后，删除所有元素，就会出现"假满"(front=rear)
+ * <p>
+ *     处理"假满"问题，主要有如下两种解决方案：
+ *     1，每次将元素移除队列时都将队列中的所有元素向front端移动一位，这种方式下front值永远为0，有元素插入队列时rear+1，有元素移除队列时rear-1，
+ *     但这种方式非常浪费时间，每次都将元素从队列移除都需要进行"整体搬家"
+ *     2，将数组存储区看成一个首尾相接的环形区域，当存放数组的最大地址后，rear值再次变成0。采用这种技巧存储的队列称之为循环队列。
+ * <p>
+ *
+ * <p>
  * <p>
  * Created by Chiclaim on 2018/3/12.
  */
@@ -76,6 +87,12 @@ public class SequenceQueue<T> implements Iterable<T> {
         return (T) elementData[front];
     }
 
+    public void clear() {
+        Arrays.fill(elementData, null);
+        front = 0;
+        rear = 0;
+    }
+
     public String toString() {
         if (isEmpty()) {
             return "[]";
@@ -123,10 +140,14 @@ public class SequenceQueue<T> implements Iterable<T> {
             System.out.print(str + ",");
         }
         System.out.println();
-        System.out.println("元素大小：" + queue.size());
+        System.out.println("元素个数：" + queue.size());
 
 
         System.out.println("queue.get：" + queue.get());
+
+        queue.clear();
+
+        System.out.println("clear后元素个数：" + queue.size());
     }
 
 
