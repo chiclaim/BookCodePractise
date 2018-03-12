@@ -3,7 +3,7 @@ package com.chiclaim.data.structure;
 import java.util.Iterator;
 
 /**
- * 实现一个简易的线性表（单向链表）
+ * 实现一个简易的线性表（链式存储）
  * Created by Chiclaim on 2018/3/7.
  */
 public class LinkedList<T> implements List<T> {
@@ -218,12 +218,6 @@ public class LinkedList<T> implements List<T> {
         linkedList.add("1", 1);
         linkedList.add("2", 2);
         forEach(linkedList);
-
-        linkedList.addToHeader("-1 ");
-        forEach(linkedList);
-
-        linkedList.clear();
-        System.out.println("clear()后的集合大小：" + linkedList.size());
     }
 
     private static void forEach(List<String> linkedList) {
