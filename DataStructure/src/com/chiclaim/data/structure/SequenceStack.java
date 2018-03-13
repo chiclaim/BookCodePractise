@@ -56,6 +56,7 @@ public class SequenceStack<T> implements Iterable<T> {
                     capacity <<= 1;
                 }
             }
+            elementData = Arrays.copyOf(elementData, capacity);
         }
     }
 
@@ -127,7 +128,7 @@ public class SequenceStack<T> implements Iterable<T> {
     public static void main(String[] args) {
 
         SequenceStack<String> stack = new SequenceStack<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 12; i++) {
             stack.push(i + "");
         }
 
