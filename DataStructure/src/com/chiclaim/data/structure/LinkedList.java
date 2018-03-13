@@ -4,6 +4,9 @@ import java.util.Iterator;
 
 /**
  * 实现一个简易的线性表（链式存储）
+ * <p>
+ *     需要注意的是remove的时候，一定要把remove的节点的next引用解除掉
+ * <p>
  * Created by Chiclaim on 2018/3/7.
  */
 public class LinkedList<T> implements List<T> {
