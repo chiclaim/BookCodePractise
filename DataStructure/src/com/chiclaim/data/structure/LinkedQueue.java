@@ -10,7 +10,7 @@ public class LinkedQueue<T> implements Iterable<T> {
 
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return new MyIterator();
     }
 
