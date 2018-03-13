@@ -12,12 +12,12 @@ import java.util.Iterator;
  * <p>
  * 简易顺序队列出现的"假满"：当往队列里插满元素后，删除所有元素，就会出现"假满"(front=rear)
  * <p>
- *     处理"假满"问题，主要有如下两种解决方案：
- *     1，每次将元素移除队列时都将队列中的所有元素向front端移动一位，这种方式下front值永远为0，有元素插入队列时rear+1，有元素移除队列时rear-1，
- *     但这种方式非常浪费时间，每次都将元素从队列移除都需要进行"整体搬家"
- *     2，将数组存储区看成一个首尾相接的环形区域，当存放数组的最大地址后，rear值再次变成0。采用这种技巧存储的队列称之为循环队列。
+ * 处理"假满"问题，主要有如下两种解决方案：
+ * 1，每次将元素移除队列时都将队列中的所有元素向front端移动一位，这种方式下front值永远为0，有元素插入队列时rear+1，有元素移除队列时rear-1，
+ * 但这种方式非常浪费时间，每次都将元素从队列移除都需要进行"整体搬家"
+ * 2，将数组存储区看成一个首尾相接的环形区域，当存放数组的最大地址后，rear值再次变成0。采用这种技巧存储的队列称之为循环队列。
  * <p>
- *
+ * <p>
  * <p>
  * <p>
  * Created by Chiclaim on 2018/3/12.
@@ -64,6 +64,9 @@ public class SequenceQueue<T> implements Iterable<T> {
 
 
     public void add(T element) {
+        if (element == null) {
+            throw new NullPointerException();
+        }
         if (rear > capacity - 1) {
             throw new IndexOutOfBoundsException("队列已满：" + capacity);
         }

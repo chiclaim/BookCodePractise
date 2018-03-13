@@ -45,11 +45,16 @@ public class LoopSequenceQueue<T> implements Iterable<T> {
     public boolean isEmpty() {
         //环形队列"假满"的时候rear = front，所以还需要判断数组的第一个元素是否为空
         //但是也有可能开发者放进去的第一个元素就是null，其他的位置不是null，这个时候就会有问题
+        //可以在插入的时候,判断是否为null,为null则抛出异常, Java中的Queue队列如果插入null就会抛出空指针异常
+        //所以我们也可以这样处理
         return rear == front && elementData[rear] == null;
     }
 
 
     public void add(T element) {
+        if (element == null) {
+            throw new NullPointerException();
+        }
         if (rear > capacity - 1) {
             throw new IndexOutOfBoundsException("队列已满：" + capacity);
         }

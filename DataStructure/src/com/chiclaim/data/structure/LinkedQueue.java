@@ -63,6 +63,9 @@ public class LinkedQueue<T> implements Iterable<T> {
     }
 
     public void add(T element) {
+        if (element == null) {
+            throw new NullPointerException();
+        }
 
         //判断是否是空队列
         if (front == null) {
