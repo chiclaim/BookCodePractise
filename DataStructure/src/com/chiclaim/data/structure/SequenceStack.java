@@ -51,7 +51,7 @@ public class SequenceStack<T> implements Iterable<T> {
                     capacity += capacityIncrement;
                 }
             } else {
-                //不断地降capacity * 2,知道capacity大于minCapacity
+                //不断地capacity * 2,直到capacity大于minCapacity
                 while (capacity < minCapacity) {
                     capacity <<= 1;
                 }
