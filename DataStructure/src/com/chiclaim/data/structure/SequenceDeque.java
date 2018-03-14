@@ -123,9 +123,9 @@ public class SequenceDeque<T> {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     public T removeLast() {
         int t = (tail - 1) & (elementData.length - 1);
-        @SuppressWarnings("unchecked")
         T result = (T) elementData[t];
         if (result == null)
             return null;
@@ -154,8 +154,19 @@ public class SequenceDeque<T> {
         deque.addFirst("9");
 
 
-        System.out.println("peekLast:" + deque.peekLast());
+        System.out.println("size:" + deque.size());
 
+        System.out.println("peekLast:" + deque.peekLast());
+        System.out.println("peekFirst:" + deque.peekFirst());
+
+        System.out.println("pop:" + deque.pop());
+
+        System.out.println("size:" + deque.size());
+
+        System.out.println("removeFirst:" + deque.removeFirst());
+        System.out.println("removeLast:" + deque.removeLast());
+
+        System.out.println("size:" + deque.size());
     }
 
 }
