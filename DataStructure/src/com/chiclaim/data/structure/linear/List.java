@@ -1,4 +1,4 @@
-package com.chiclaim.data.structure;
+package com.chiclaim.data.structure.linear;
 
 /**
  * Created by Chiclaim on 2018/3/7.

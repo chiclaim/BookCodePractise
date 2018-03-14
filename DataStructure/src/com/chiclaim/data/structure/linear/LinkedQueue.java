@@ -1,4 +1,4 @@
-package com.chiclaim.data.structure;
+package com.chiclaim.data.structure.linear;
 
 import java.util.Iterator;
 

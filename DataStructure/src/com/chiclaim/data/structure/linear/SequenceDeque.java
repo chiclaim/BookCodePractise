@@ -1,4 +1,4 @@
-package com.chiclaim.data.structure;
+package com.chiclaim.data.structure.linear;
 
 /**
  * 双端队列(Double Ended Queue)
