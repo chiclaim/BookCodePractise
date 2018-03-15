@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 树
+ * 树（父节点表示法）
+ * <p>
+ *     父节点表示法的思想是让每个节点"记住"它的父节点索引，每个节点都可以快速找到它的父节点。
+ *     但是如果要找某个节点的所有子节点就比较麻烦，需要遍历整个节点数组
+ * <p>
  * Created by Chiclaim on 2018/3/14.
  */
 public class Tree<T> {
@@ -40,7 +44,7 @@ public class Tree<T> {
     public Tree(T data, int capacity) {
         this.capacity = capacity;
         nodes = new Node[capacity];
-        nodes[0] = new Node<T>(data, -1);
+        nodes[0] = new Node<>(data, -1);
         size++;
     }
 
@@ -112,7 +116,7 @@ public class Tree<T> {
     }
 
     /**
-     * 获取某个节点的
+     * 获取某个节点的索引
      *
      * @param node
      * @return
@@ -144,6 +148,17 @@ public class Tree<T> {
         System.out.println(tree.getAll()[1] + "-->" + tree.children(tree.getAll()[1]));
 
     }
+
+    /*
+          Root
+        /     \
+       /       \
+     Second1   Second2
+     /
+    /
+  Third1
+
+     */
 
 
 }
