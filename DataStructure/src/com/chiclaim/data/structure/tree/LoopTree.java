@@ -135,7 +135,7 @@ public class LoopTree {
         System.out.println("深度遍历之 后序遍历" + postIterator());
     }
 
-    public void loopByWide() {
+    public void loopByBreadth() {
         System.out.println("广度优先遍历：" + wideIterator());
     }
 
@@ -144,7 +144,7 @@ public class LoopTree {
         LoopTree loopTree = new LoopTree();
         loopTree.initData();
         loopTree.loopByDeep();
-        loopTree.loopByWide();
+        loopTree.loopByBreadth();
     }
 
 
