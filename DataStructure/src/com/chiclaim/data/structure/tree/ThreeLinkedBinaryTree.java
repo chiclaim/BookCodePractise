@@ -6,7 +6,7 @@ package com.chiclaim.data.structure.tree;
  */
 public class ThreeLinkedBinaryTree<T> {
 
-    class Node {
+    public static class Node {
         Object data;
         Node left;
         Node right;
@@ -124,8 +124,8 @@ public class ThreeLinkedBinaryTree<T> {
     public static void main(String[] args) {
         ThreeLinkedBinaryTree<String> binaryTree = new ThreeLinkedBinaryTree<>("0");
 
-        ThreeLinkedBinaryTree<String>.Node left = binaryTree.addNode(binaryTree.getRoot(), "1", true);
-        ThreeLinkedBinaryTree<String>.Node right = binaryTree.addNode(binaryTree.getRoot(), "2", false);
+        Node left = binaryTree.addNode(binaryTree.getRoot(), "1", true);
+        Node right = binaryTree.addNode(binaryTree.getRoot(), "2", false);
 
         binaryTree.addNode(left, "3", true);
         binaryTree.addNode(left, "4", false);
