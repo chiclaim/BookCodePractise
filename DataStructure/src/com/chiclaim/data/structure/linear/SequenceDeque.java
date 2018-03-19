@@ -12,7 +12,14 @@ package com.chiclaim.data.structure.linear;
  * <p>
  * 如果ArrayDeque当做栈使用比Stack更快；
  * 如果ArrayDeque当做队列使用比LinkedList要快
- * 所以在Java中如果要使用栈或者队列，建议使用ArrayQueue。ArrayQueue是非线程安全的
+ * 所以在Java中如果要使用栈或者队列，建议使用ArrayDeque。ArrayDeque是非线程安全的。
+ * ArrayDeque常用方法：
+ * <p>
+ * 1，pop和poll区别，都是获取并移除队列的头部元素，但是元素如果为null，pop会抛出异常
+ * 2，add和offer 都是往双端队列的的尾部添加指定元素
+ * ...
+ * <p>
+ * <p>
  * <p>
  * Created by Chiclaim on 2018/3/13.
  */
