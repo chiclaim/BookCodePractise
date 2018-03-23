@@ -137,12 +137,13 @@ public class SortedBinaryTree<T extends Comparable> {
                     //将target的父节点的right设置为null
                     target.parent.right = null;
                 }
+                //解除引用
                 target.parent = null;
             }
         }
         //如果要删除的节点只有右子树
         else if (target.left == null && target.right != null) {
-            //如果要删除的节点时根节点
+            //如果要删除的节点是根节点
             if (target == root) {
                 root = target.right;
             }
@@ -159,7 +160,7 @@ public class SortedBinaryTree<T extends Comparable> {
         }
         //如果要删除的节点只有左子树
         else if (target.left != null && target.right == null) {
-            //如果要删除的节点时根节点
+            //如果要删除的节点是根节点
             if (target == root) {
                 root = target.left;
             } else {
@@ -174,7 +175,9 @@ public class SortedBinaryTree<T extends Comparable> {
                 //让target的左子树的parent指向target的parent
                 target.left.parent = target.parent;
             }
-        } else {
+        }
+        //如果要删除的节点既有左子树，又有右子树
+        else {
             //leftMaxNode用于保存target节点的左子树中最大值的节点
             Node leftMaxNode = target.left;
             //搜索target节点的左子树中值最大的节点
@@ -199,6 +202,7 @@ public class SortedBinaryTree<T extends Comparable> {
 
             leftMaxNode.left = target.left;
             leftMaxNode.right = target.right;
+            //解除被删除节点的其他引用
             target.parent = target.left = target.right = null;
         }
     }

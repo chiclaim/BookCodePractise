@@ -43,7 +43,11 @@
         广度优先遍历：这种遍历算法将逐层访问每层的节点，所以广度优先又称为按层遍历
 
 
+树的基本概念：
 
+http://www.cnblogs.com/idorax/p/6441043.html
+
+http://klausguan.com/2017/08/02/inorder-tree-successor/
 
 
 
