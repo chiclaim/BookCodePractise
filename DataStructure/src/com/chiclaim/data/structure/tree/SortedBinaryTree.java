@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-  排序二叉树
+  排序二叉树、二叉排序树（Binary Sort Tree）、二叉查找树（Binary Search Tree），亦称二叉搜索树。
 
   排序二叉树是一种特殊结构的二叉树，通过它可以非常方便的对树种的所有节点进行排序和检索。
 
