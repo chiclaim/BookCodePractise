@@ -10,7 +10,7 @@ public class HeapSort {
 
 
     public static void main(String[] args) {
-        Integer[] array = {4, 1, 4, 7, 3, 8, 0};
+        Integer[] array = {9, 79,46, 30, 58, 49};
         heapSort(array);
         System.out.println(Arrays.toString(array));
     }
@@ -19,7 +19,9 @@ public class HeapSort {
     public static void heapSort(Integer[] data) {
         int len = data.length;
         for (int i = 0; i < len; i++) {
+            //建堆
             buildMaxHeap(data, len - 1 - i);
+            //交换堆顶和最后一个元素
             swap(data, 0, len - 1 - i);
         }
     }
