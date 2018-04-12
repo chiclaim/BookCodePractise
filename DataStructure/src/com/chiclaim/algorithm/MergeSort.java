@@ -13,43 +13,47 @@ public class MergeSort {
      * 将两个数组进行归并，归并前两个数组已经有序，归并后依然有序
      *
      * @param data   数据
-     * @param left   左数组的第一个元素的索引
+     * @param start   左数组的第一个元素的索引
      * @param center 左数组的最后一个元素的索引，center+1是右数组的第一个元素的索引
-     * @param right  右数组的最后一个元素的索引
+     * @param end  右数组的最后一个元素的索引
      */
-    private static void merge(int[] data, int left, int center, int right) {
+    private static void merge(int[] data, int start, int center, int end) {
 
         //创建一个中间数组
-
         //不用每次都创建一个全量数组（浪费空间）
-        //或者通过外面传入一个全量数组， 排序的时候公用这一个传入的中间数组
+        //或者通过外面传入一个全量数组， 后面排序的时候共用这一个传入的中间数组
         //int[] tmpArr = new int[data.length];
-        int[] tmpArr = new int[right + 1];
+        int[] tmpArr = new int[end + 1];
 
-        int mid = center + 1;
         //third记录中间数组的索引
-        int third = left;
-        int tmp = left;
+        int tmpArrCursor = start;
 
-        while (left <= center && mid <= right) {
+        //保存一开始的左边界，用于把中间数组的数据复制到原数组中
+        int tmpLeft = start;
+
+        int j = center + 1;
+        int i = start;
+
+        while (i <= center && j <= end) {
             //从两个数组中取出小的放进中间数组
-            if (data[left] <= data[mid]) {
-                tmpArr[third++] = data[left++];
+            if (data[i] <= data[j]) {
+                tmpArr[tmpArrCursor++] = data[i++];
             } else {
-                tmpArr[third++] = data[mid++];
+                tmpArr[tmpArrCursor++] = data[j++];
             }
         }
-        //剩余部分依次放入中间数组
-        while (mid <= right) {
-            tmpArr[third++] = data[mid++];
+        //剩余的右边部分(mid~right)依次放入中间数组
+        while (j <= end) {
+            tmpArr[tmpArrCursor++] = data[j++];
         }
-        while (left <= center) {
-            tmpArr[third++] = data[left++];
+        //剩余的左边部分(left~center)依次放入中间数组
+        while (i <= center) {
+            tmpArr[tmpArrCursor++] = data[i++];
         }
 
         //将中间数组中的内容复制回原数组（原left至right范围的内容复制回原数组）
-        while (tmp <= right) {
-            data[tmp] = tmpArr[tmp++];
+        while (tmpLeft <= end) {
+            data[tmpLeft] = tmpArr[tmpLeft++];
         }
         System.out.println("tmp:" + Arrays.toString(tmpArr));
 
@@ -65,7 +69,7 @@ public class MergeSort {
             //对右边数组进行排序
             sort(data, center + 1, right);
 
-            System.out.println(left + "-" + right);
+            System.out.println(left + "-" + center + "-" + right);
 
             //合并
             merge(data, left, center, right);
