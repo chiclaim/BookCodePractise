@@ -19,8 +19,6 @@ public class MergeSort {
      */
     private static void merge(int[] data, int left, int center, int right) {
 
-        System.out.println(left + "-" + center + "-" + right);
-
         int[] tmpArr = new int[data.length];
 
         int mid = center + 1;
@@ -29,6 +27,7 @@ public class MergeSort {
         int tmp = left;
 
         while (left <= center && mid <= right) {
+            //从两个数组中取出小的放进中间数组
             if (data[left] <= data[mid]) {
                 tmpArr[third++] = data[left++];
             } else {
@@ -60,8 +59,13 @@ public class MergeSort {
             sort(data, left, center);
             //对右边数组进行排序
             sort(data, center + 1, right);
+
+            System.out.println(left + "-" + right);
+
             //合并
             merge(data, left, center, right);
+
+
         }
     }
 
@@ -71,10 +75,32 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        int[] data = {2, 3, 45, 2, 5, 10, 143, 12};
-        System.out.println(Arrays.toString(data));
+        /*
+            [2, 1, 45, 2, 5, 10, 43, 12] 元素8个的时候
+            0-1
+            2-3
+            0-3
+            4-5
+            6-7
+            4-7
+            0-7
+
+            [2, 1, 45, 2, 5, 10, 43, 12, 11] 元素9个的时候
+            0-1
+            0-2
+            3-4
+            0-4
+            5-6
+            7-8
+            5-8
+            0-8
+
+         */
+        //int[] data = {2, 1, 45, 2, 5, 10, 14, 12, 11};
+        int[] data = {2, 1, 45, 2, 5, 10, 14, 12};
+        System.out.println("before:" + Arrays.toString(data));
         mergeSort(data);
-        System.out.println(Arrays.toString(data));
+        System.out.println("after:" + Arrays.toString(data));
     }
 
 
