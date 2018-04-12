@@ -19,7 +19,12 @@ public class MergeSort {
      */
     private static void merge(int[] data, int left, int center, int right) {
 
-        int[] tmpArr = new int[data.length];
+        //创建一个中间数组
+
+        //不用每次都创建一个全量数组（浪费空间）
+        //或者通过外面传入一个全量数组， 排序的时候公用这一个传入的中间数组
+        //int[] tmpArr = new int[data.length];
+        int[] tmpArr = new int[right + 1];
 
         int mid = center + 1;
         //third记录中间数组的索引
@@ -38,15 +43,15 @@ public class MergeSort {
         while (mid <= right) {
             tmpArr[third++] = data[mid++];
         }
-
         while (left <= center) {
             tmpArr[third++] = data[left++];
         }
+
         //将中间数组中的内容复制回原数组（原left至right范围的内容复制回原数组）
         while (tmp <= right) {
             data[tmp] = tmpArr[tmp++];
         }
-
+        System.out.println("tmp:" + Arrays.toString(tmpArr));
 
     }
 
@@ -64,6 +69,8 @@ public class MergeSort {
 
             //合并
             merge(data, left, center, right);
+
+            System.out.println("\t   " + Arrays.toString(data));
 
 
         }
@@ -97,7 +104,7 @@ public class MergeSort {
 
          */
         //int[] data = {2, 1, 45, 2, 5, 10, 14, 12, 11};
-        int[] data = {2, 1, 45, 2, 5, 10, 14, 12};
+        int[] data = {2, 1, 45, 2, 5, 10, 43, 12};
         System.out.println("before:" + Arrays.toString(data));
         mergeSort(data);
         System.out.println("after:" + Arrays.toString(data));
