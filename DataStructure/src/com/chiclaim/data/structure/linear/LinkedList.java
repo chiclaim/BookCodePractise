@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * 实现一个简易的线性表（链式存储）
  * <p>
- *     需要注意的是remove的时候，一定要把remove的节点的next引用解除掉
+ * 需要注意的是remove的时候，一定要把remove的节点的next引用解除掉
  * <p>
  * Created by Chiclaim on 2018/3/7.
  */
@@ -86,7 +86,7 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
-    public void add(T t, int index) {
+    public void add(int index, T t) {
         checkIndexOutOfBound(index, size);
         if (header == null) {
             add(t);
@@ -223,8 +223,8 @@ public class LinkedList<T> implements List<T> {
 
         System.out.println("元素为9的索引：" + linkedList.indexOf("9"));
 
-        linkedList.add("1", 1);
-        linkedList.add("2", 2);
+        linkedList.add(1, "1");
+        linkedList.add(2, "2");
         forEach(linkedList);
     }
 

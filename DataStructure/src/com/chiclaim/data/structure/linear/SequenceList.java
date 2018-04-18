@@ -67,7 +67,7 @@ public class SequenceList<T> implements List<T> {
      */
     @Override
     public void add(T t) {
-        add(t, size);
+        add(size, t);
     }
 
     /**
@@ -77,7 +77,7 @@ public class SequenceList<T> implements List<T> {
      * @param index
      */
     @Override
-    public void add(T t, int index) {
+    public void add(int index, T t) {
         checkIndexOutOfBound(index, size);
         ensureSize(capacity + 1);
         System.arraycopy(array, index, array, index + 1, size - index);
@@ -218,10 +218,10 @@ public class SequenceList<T> implements List<T> {
         list.remove("1");
         print(list);
 
-        list.add("0", 0);
-        list.add("1", 1);
+        list.add(0, "0");
+        list.add(1, "1");
         print(list);
-        list.add("10", 10);
+        list.add(10, "10");
         print(list);
 
         System.out.println(list.get(9));

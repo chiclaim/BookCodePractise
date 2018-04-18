@@ -97,7 +97,7 @@ public class DuplexLinkedList<T> implements List<T> {
     }
 
     @Override
-    public void add(T t, int index) {
+    public void add(int index, T t) {
         checkIndexOutOfBound(index, size);
         if (header == null) {
             add(t);
@@ -235,8 +235,8 @@ public class DuplexLinkedList<T> implements List<T> {
 
         System.out.println("元素为9的索引：" + linkedList.indexOf("9"));
 
-        linkedList.add("1", 1);
-        linkedList.add("2", 2);
+        linkedList.add(1, "1");
+        linkedList.add(2, "2");
         forEach(linkedList);
 
         linkedList.addToHeader("-1 ");

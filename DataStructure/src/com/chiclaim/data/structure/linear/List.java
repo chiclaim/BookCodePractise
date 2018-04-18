@@ -3,10 +3,10 @@ package com.chiclaim.data.structure.linear;
 /**
  * Created by Chiclaim on 2018/3/7.
  */
-public interface List<T> extends Iterable<T>{
+public interface List<T> extends Iterable<T> {
     void add(T t);
 
-    void add(T t, int index);
+    void add(int index, T t);
 
     T get(int index);
 
