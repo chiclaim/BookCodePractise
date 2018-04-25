@@ -1,6 +1,7 @@
 package com.chiclaim.data.structure.linear;
 
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Chiclaim on 2018/4/25.
@@ -12,7 +13,8 @@ public class FailFast {
 //        testJdkArrayListFailFast();
 //        iteratorRemove();
 //        iteratorMultipleThread();
-        fixIteratorMultipleThread();
+//        fixIteratorMultipleThread();
+        fixIteratorMultipleThread2();
     }
 
 
@@ -56,7 +58,7 @@ public class FailFast {
                 while (iterator.hasNext()) {
                     System.out.println("迭代：" + iterator.next());
                     try {
-                        Thread.sleep(10);//出让cpu资源
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -84,7 +86,6 @@ public class FailFast {
 
     private static void fixIteratorMultipleThread() {
         java.util.ArrayList<Integer> list = new java.util.ArrayList<>();
-
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
@@ -121,6 +122,44 @@ public class FailFast {
                             System.out.println("移除：" + i);
                         }
 
+                    }
+                }
+            }
+        }).start();
+
+    }
+
+    private static void fixIteratorMultipleThread2() {
+        CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(i);
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println("迭代：" + list.get(i));
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < list.size(); i++) {
+                    if (i % 2 == 0) {
+                        System.out.println("移除：" + list.remove(i));
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
