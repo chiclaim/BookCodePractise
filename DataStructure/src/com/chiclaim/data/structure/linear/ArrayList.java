@@ -7,7 +7,7 @@ import java.util.Iterator;
  * 实现一个简易的线性表（顺序存储）
  * Created by Chiclaim on 2018/3/5.
  */
-public class SequenceList<T> implements List<T> {
+public class ArrayList<T> implements List<T> {
 
     private static final int DEFAULT_SIZE = 16;
 
@@ -18,12 +18,12 @@ public class SequenceList<T> implements List<T> {
     private int size;
 
 
-    public SequenceList() {
+    public ArrayList() {
         capacity = DEFAULT_SIZE;
         array = new Object[capacity];
     }
 
-    public SequenceList(int size) {
+    public ArrayList(int size) {
         capacity = 1;
         //把capacity设置为大于size的最小的2的n次方
         while (capacity < size) {
@@ -202,7 +202,7 @@ public class SequenceList<T> implements List<T> {
     }
 
     public static void main(String[] args) {
-        SequenceList<String> list = new SequenceList<>(7);
+        ArrayList<String> list = new ArrayList<>(7);
         //添加元素
         for (int i = 0; i < 10; i++) {
             list.add(i + "");
