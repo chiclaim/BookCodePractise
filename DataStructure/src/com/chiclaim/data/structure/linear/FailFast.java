@@ -130,6 +130,7 @@ public class FailFast {
     }
 
     private static void fixIteratorMultipleThread2() {
+        // TODO: 2018/4/25 fix
         CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add(i);
