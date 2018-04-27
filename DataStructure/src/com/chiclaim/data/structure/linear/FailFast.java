@@ -130,43 +130,44 @@ public class FailFast {
     }
 
     private static void fixIteratorMultipleThread2() {
-        // TODO: 2018/4/25 fix
+
+        /*
+            迭代的过程中不断的插入
+
+            thread1插入，thread2迭代
+         */
+
         CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
-        }
-
-        new Thread(new Runnable() {
+//        java.util.ArrayList<Integer> list = new java.util.ArrayList<>();
+        Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println("迭代：" + list.get(i));
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                int i = 1;
+                while (true) {
+                    list.add(i++);
+                    System.out.println(i + "---------add");
                 }
             }
-        }).start();
+        });
+        thread.setDaemon(true);
+        thread.start();
 
-        new Thread(new Runnable() {
+
+        Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < list.size(); i++) {
-                    if (i % 2 == 0) {
-                        System.out.println("移除：" + list.remove(i));
-                        try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for (int value : list) {
+                    System.out.println("------" + value);
                 }
             }
-        }).start();
+        });
+        thread2.start();
 
     }
-
 
 }
