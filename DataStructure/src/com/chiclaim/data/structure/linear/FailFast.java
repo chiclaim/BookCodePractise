@@ -149,7 +149,7 @@ public class FailFast {
                 }
             }
         });
-        thread.setDaemon(true);
+        thread.setDaemon(true);//如果仅剩下daemon线程，JVM将会退出
         thread.start();
 
 
