@@ -201,10 +201,10 @@ public class LinkedList<T> implements List<T> {
             linkedList.add(i + "");
         }
 
-        System.out.println("for index方式遍历：");
+        System.out.println("forEach方式遍历：");
         forEach(linkedList);
 
-        System.out.println("forEach方式遍历：");
+        System.out.println("for index方式遍历：");
         for (int i = 0; i < linkedList.size(); i++) {
             System.out.print(linkedList.get(i));
         }
