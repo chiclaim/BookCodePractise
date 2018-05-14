@@ -70,6 +70,26 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void add(T t) {
+        addLast(t);
+    }
+
+    @Override
+    public void add(int index, T t) {
+        checkIndexOutOfBound(index, size);
+        if (header == null) {
+            add(t);
+        } else {
+            if (index == 0) {
+                addFirst(t);
+            } else {
+                Node prevNode = getNodeByIndex(index - 1);
+                prevNode.next = new Node(t, prevNode.next);
+                size++;
+            }
+        }
+    }
+
+    public void addLast(T t) {
         //空链表
         if (header == null) {
             //首尾都指向新的节点
@@ -85,28 +105,12 @@ public class LinkedList<T> implements List<T> {
 
     }
 
-    @Override
-    public void add(int index, T t) {
-        checkIndexOutOfBound(index, size);
-        if (header == null) {
-            add(t);
-        } else {
-            if (index == 0) {
-                addToHeader(t);
-            } else {
-                Node prevNode = getNodeByIndex(index - 1);
-                prevNode.next = new Node(t, prevNode.next);
-                size++;
-            }
-        }
-    }
-
     /**
      * 采用头插法 插入新节点
      *
      * @param element
      */
-    public void addToHeader(T element) {
+    public void addFirst(T element) {
         header = new Node(element, header);
         if (tail == null) {
             tail = header;
@@ -201,10 +205,10 @@ public class LinkedList<T> implements List<T> {
             linkedList.add(i + "");
         }
 
-        System.out.println("for index方式遍历：");
+        System.out.println("forEach方式遍历：");
         forEach(linkedList);
 
-        System.out.println("forEach方式遍历：");
+        System.out.println("for index方式遍历：");
         for (int i = 0; i < linkedList.size(); i++) {
             System.out.print(linkedList.get(i));
         }
