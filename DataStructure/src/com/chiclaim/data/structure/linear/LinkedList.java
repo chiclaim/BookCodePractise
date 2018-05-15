@@ -1,6 +1,7 @@
 package com.chiclaim.data.structure.linear;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 实现一个简易的线性表（链式存储）
@@ -13,7 +14,7 @@ public class LinkedList<T> implements List<T> {
 
     private int size;
 
-    private Node header;
+    private Node head;
     private Node tail;
 
     @Override
@@ -23,7 +24,7 @@ public class LinkedList<T> implements List<T> {
 
     class MyIterator implements Iterator<T> {
 
-        private Node current = header;
+        private Node current = head;
 
         public boolean hasNext() {
             return current != null;
@@ -76,7 +77,7 @@ public class LinkedList<T> implements List<T> {
     @Override
     public void add(int index, T t) {
         checkIndexOutOfBound(index, size);
-        if (header == null) {
+        if (head == null) {
             add(t);
         } else {
             if (index == 0) {
@@ -91,9 +92,9 @@ public class LinkedList<T> implements List<T> {
 
     public void addLast(T t) {
         //空链表
-        if (header == null) {
+        if (head == null) {
             //首尾都指向新的节点
-            tail = header = new Node(t, null);
+            tail = head = new Node(t, null);
         } else {
             Node newNode = new Node(t, null);
             //让尾部的next指向新的节点
@@ -111,9 +112,9 @@ public class LinkedList<T> implements List<T> {
      * @param element
      */
     public void addFirst(T element) {
-        header = new Node(element, header);
+        head = new Node(element, head);
         if (tail == null) {
-            tail = header;
+            tail = head;
         }
         size++;
     }
@@ -126,7 +127,7 @@ public class LinkedList<T> implements List<T> {
      */
     private Node getNodeByIndex(int index) {
         checkIndexOutOfBound(index, size - 1);
-        Node current = header;
+        Node current = head;
         for (int i = 0; i < size; i++, current = current.next) {
             if (index == i) {
                 return current;
@@ -146,7 +147,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public int indexOf(T t) {
-        Node current = header;
+        Node current = head;
         for (int i = 0; i < size; i++, current = current.next) {
             if (t == null && current.element == null) {
                 return i;
@@ -156,6 +157,55 @@ public class LinkedList<T> implements List<T> {
             }
         }
         return -1;
+    }
+
+    /**
+     * 删除尾节点
+     *
+     * @return element
+     */
+    public T removeLast() {
+        Node delete = tail;
+        if (delete == null) {
+            throw new NoSuchElementException();
+        }
+        //如果当前只有一个节点
+        if (delete == head) {
+            head = tail = null;
+        } else {
+            //因为是单向链表，无法直接获取最后节点的上一个节点
+            Node pre = getNodeByIndex(size - 2);
+            //解除引用
+            pre.next = null;
+            //重新设置tail节点
+            tail = pre;
+        }
+        size--;
+        return delete.element;
+    }
+
+    /**
+     * 删除头节点
+     *
+     * @return element
+     */
+    public T removeFirst() {
+        Node delete = head;
+        if (delete == null) {
+            throw new NoSuchElementException();
+        }
+        //如果当前只有一个节点
+        if (delete == tail) {
+            head = tail = null;
+        } else {
+            Node next = delete.next;
+            //解除引用
+            delete.next = null;
+            //重新设置header节点
+            head = next;
+        }
+        size--;
+        return delete.element;
     }
 
     @Override
@@ -174,8 +224,8 @@ public class LinkedList<T> implements List<T> {
         Node delete;
         //如果删除的是头部
         if (index == 0) {
-            delete = header;
-            header = header.next;
+            delete = head;
+            head = head.next;
         } else {
             Node pre = getNodeByIndex(index - 1);
             delete = pre.next;
@@ -188,7 +238,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void clear() {
-        header = null;
+        head = null;
         tail = null;
         size = 0;
     }
@@ -198,6 +248,21 @@ public class LinkedList<T> implements List<T> {
         return size;
     }
 
+    @Override
+    public String toString() {
+        if (size == 0) {
+            return "[]";
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("head [");
+        Node current = head;
+        while (current != null) {
+            builder.append(current.element).append("->");
+            current = current.next;
+        }
+        builder.append("null] tail");
+        return builder.toString();
+    }
 
     public static void main(String[] args) {
         LinkedList<String> linkedList = new LinkedList<>();
@@ -230,6 +295,18 @@ public class LinkedList<T> implements List<T> {
         linkedList.add(1, "1");
         linkedList.add(2, "2");
         forEach(linkedList);
+
+        System.out.println();
+
+        LinkedList<String> linkedList2 = new LinkedList<>();
+        linkedList2.add("A");//只有一个元素的情况，移除尾节点元素
+        linkedList2.removeLast();
+        System.out.println(linkedList2);
+
+        linkedList2.add("A");//只有一个元素的情况，移除头结点元素
+        linkedList2.removeFirst();
+        System.out.println(linkedList2);
+
     }
 
     private static void forEach(List<String> linkedList) {
