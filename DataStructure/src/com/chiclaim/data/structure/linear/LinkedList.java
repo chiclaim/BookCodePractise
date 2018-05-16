@@ -228,8 +228,11 @@ public class LinkedList<T> implements List<T> {
             head = head.next;
         } else {
             Node pre = getNodeByIndex(index - 1);
+            //待删除的节点
             delete = pre.next;
+            //解除待删除节点和它前一个节点的引用
             pre.next = delete.next;
+            //解除待删除节点和下一个节点的引用
             delete.next = null;
         }
         size--;
@@ -306,6 +309,13 @@ public class LinkedList<T> implements List<T> {
         linkedList2.add("A");//只有一个元素的情况，移除头结点元素
         linkedList2.removeFirst();
         System.out.println(linkedList2);
+
+        linkedList2.add("A");
+        linkedList2.add("B");
+        System.out.println(linkedList2);
+        linkedList2.removeFirst();
+        linkedList2.removeFirst();
+        System.out.println("after remove first:" + linkedList2);
 
     }
 
