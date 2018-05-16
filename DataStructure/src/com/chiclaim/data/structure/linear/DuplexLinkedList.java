@@ -87,7 +87,7 @@ public class DuplexLinkedList<T> implements List<T> {
             if (index == 0) {
                 addFirst(t);
             } else {
-                Node prevNode = getNode(index - 1);
+                Node prevNode = getNodeFast(index - 1);
                 prevNode.next = new Node(t, prevNode.next, prevNode);
                 size++;
             }
@@ -204,7 +204,7 @@ public class DuplexLinkedList<T> implements List<T> {
         if (index == 0) {
             return removeFirst();
         } else {
-            Node pre = getNode(index - 1);
+            Node pre = getNodeFast(index - 1);
             delete = pre.next;
             pre.next = delete.next;
             delete.next = null;
@@ -291,39 +291,37 @@ public class DuplexLinkedList<T> implements List<T> {
             linkedList.add(i + "");
         }
 
-        System.out.println("for index方式遍历：");
+        System.out.println("foreach方式遍历：");
         forEach(linkedList);
 
-        System.out.println("forEach方式遍历：");
+        System.out.println("for index 方式遍历：");
         for (int i = 0; i < linkedList.size(); i++) {
-            System.out.print(linkedList.get(i));
+            System.out.print(linkedList.get(i) + "->");
         }
         System.out.println();
 
         System.out.println("集合大小：" + linkedList.size());
 
-
         //删除元素1
         linkedList.remove("1");
-        forEach(linkedList);
+        System.out.println("remove('1'):" + linkedList);
 
         //删除index=1的元素
         linkedList.remove(1);
-        forEach(linkedList);
+        System.out.println("remove(1):" + linkedList);
         System.out.println("集合大小：" + linkedList.size());
 
         System.out.println("元素为9的索引：" + linkedList.indexOf("9"));
 
         linkedList.add(1, "1");
         linkedList.add(2, "2");
-        forEach(linkedList);
+        System.out.println(linkedList);
 
         linkedList.addFirst("-1 ");
-        forEach(linkedList);
+        System.out.println(linkedList);
 
         linkedList.clear();
         System.out.println("clear()后的集合大小：" + linkedList.size());
-
 
         DuplexLinkedList<String> linkedList2 = new DuplexLinkedList<>();
         linkedList2.add("A");
@@ -343,9 +341,9 @@ public class DuplexLinkedList<T> implements List<T> {
         System.out.println("getNodeFast(8):" + linkedList2.getNodeFast(8));
     }
 
-    private static void forEach(List<String> linkedList) {
-        for (String str : linkedList) {
-            System.out.print(str);
+    private static void forEach(DuplexLinkedList<String> linkedList) {
+        for (String value : linkedList) {
+            System.out.print(value + "->");
         }
         System.out.println();
     }
