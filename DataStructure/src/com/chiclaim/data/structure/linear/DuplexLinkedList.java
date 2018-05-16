@@ -48,6 +48,11 @@ public class DuplexLinkedList<T> implements List<T> {
             this.next = next;
             this.prev = prev;
         }
+
+        @Override
+        public String toString() {
+            return element + "";
+        }
     }
 
     /**
@@ -82,7 +87,7 @@ public class DuplexLinkedList<T> implements List<T> {
             if (index == 0) {
                 addFirst(t);
             } else {
-                Node prevNode = getNodeByIndex(index - 1);
+                Node prevNode = getNode(index - 1);
                 prevNode.next = new Node(t, prevNode.next, prevNode);
                 size++;
             }
@@ -125,7 +130,7 @@ public class DuplexLinkedList<T> implements List<T> {
      * @param index
      * @return
      */
-    private Node getNodeByIndex(int index) {
+    private Node getNode(int index) {
         checkIndexOutOfBound(index, size - 1);
         Node current = head;
         for (int i = 0; i < size; i++, current = current.next) {
@@ -136,9 +141,31 @@ public class DuplexLinkedList<T> implements List<T> {
         return null;
     }
 
+
+    /**
+     * 如果需要查找的index节点在链表的后半部分，则从后往前遍历，否则按照顺序遍历
+     *
+     * @param index
+     * @return
+     */
+    private Node getNodeFast(int index) {
+        checkIndexOutOfBound(index, size - 1);
+        if (index > size / 2) {
+            Node current = tail;
+            for (int i = size - 1; i >= 0; i--, current = current.prev) {
+                if (index == i) {
+                    return current;
+                }
+            }
+        } else {
+            return getNode(index);
+        }
+        return null;
+    }
+
     @Override
     public T get(int index) {
-        Node node = getNodeByIndex(index);
+        Node node = getNode(index);
         if (node != null) {
             return node.element;
         }
@@ -177,7 +204,7 @@ public class DuplexLinkedList<T> implements List<T> {
         if (index == 0) {
             return removeFirst();
         } else {
-            Node pre = getNodeByIndex(index - 1);
+            Node pre = getNode(index - 1);
             delete = pre.next;
             pre.next = delete.next;
             delete.next = null;
@@ -307,6 +334,13 @@ public class DuplexLinkedList<T> implements List<T> {
 
         linkedList2.addFirst("A");
         System.out.println("addFirst(A):" + linkedList2);
+        linkedList2.removeFirst();
+        linkedList2.removeLast();
+        for (int i = 0; i < 10; i++) {
+            linkedList2.add(i + "");
+        }
+        System.out.println(linkedList2);
+        System.out.println("getNodeFast(8):" + linkedList2.getNodeFast(8));
     }
 
     private static void forEach(List<String> linkedList) {

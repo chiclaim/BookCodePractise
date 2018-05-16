@@ -83,7 +83,7 @@ public class LinkedList<T> implements List<T> {
             if (index == 0) {
                 addFirst(t);
             } else {
-                Node prevNode = getNodeByIndex(index - 1);
+                Node prevNode = getNode(index - 1);
                 prevNode.next = new Node(t, prevNode.next);
                 size++;
             }
@@ -125,7 +125,7 @@ public class LinkedList<T> implements List<T> {
      * @param index
      * @return
      */
-    private Node getNodeByIndex(int index) {
+    private Node getNode(int index) {
         checkIndexOutOfBound(index, size - 1);
         Node current = head;
         for (int i = 0; i < size; i++, current = current.next) {
@@ -138,7 +138,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        Node node = getNodeByIndex(index);
+        Node node = getNode(index);
         if (node != null) {
             return node.element;
         }
@@ -174,7 +174,7 @@ public class LinkedList<T> implements List<T> {
             head = tail = null;
         } else {
             //因为是单向链表，无法直接获取最后节点的上一个节点
-            Node pre = getNodeByIndex(size - 2);
+            Node pre = getNode(size - 2);
             //解除引用
             pre.next = null;
             //重新设置tail节点
@@ -225,7 +225,7 @@ public class LinkedList<T> implements List<T> {
         if (index == 0) {
             return removeFirst();
         } else {
-            Node pre = getNodeByIndex(index - 1);
+            Node pre = getNode(index - 1);
             //待删除的节点
             delete = pre.next;
             //解除待删除节点和它前一个节点的引用
