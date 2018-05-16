@@ -63,7 +63,7 @@ public class LinkedStack<T> implements Iterable<T> {
     //注意：
     //1，每次forEach都会new一个Iterator
     //2，iterator方法执行顺序：hasNext()->next()
-    class MyIterator implements Iterator<T> {
+    private class MyIterator implements Iterator<T> {
 
         private Node current = top;
 

@@ -121,7 +121,7 @@ public class LoopSequenceQueue<T> implements Iterable<T> {
         return new MyIterator();
     }
 
-    class MyIterator implements Iterator<T> {
+    private class MyIterator implements Iterator<T> {
         int index = front;
 
         @Override

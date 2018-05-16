@@ -188,7 +188,7 @@ public class ArrayList<T> implements List<T> {
         return new MyIterator();
     }
 
-    class MyIterator implements Iterator<T> {
+    private class MyIterator implements Iterator<T> {
 
         private int index = 0;
 
