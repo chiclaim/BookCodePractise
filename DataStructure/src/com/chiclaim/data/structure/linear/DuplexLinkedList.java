@@ -10,7 +10,7 @@ public class DuplexLinkedList<T> implements List<T> {
 
     private int size;
 
-    private Node header;
+    private Node head;
     private Node tail;
 
     @Override
@@ -18,9 +18,9 @@ public class DuplexLinkedList<T> implements List<T> {
         return new MyIterator();
     }
 
-    class MyIterator implements Iterator<T> {
+    private class MyIterator implements Iterator<T> {
 
-        private Node current = header;
+        private Node current = head;
 
         public boolean hasNext() {
             return current != null;
@@ -38,26 +38,14 @@ public class DuplexLinkedList<T> implements List<T> {
      * 用于保存每个节点数据
      */
     private class Node {
-        private T element;
-        private Node prev;
-        private Node next;
+        T element;
+        Node prev;
+        Node next;
 
         Node(T element, Node next, Node prev) {
             this.element = element;
             this.next = next;
             this.prev = prev;
-        }
-
-        public T getElement() {
-            return element;
-        }
-
-        public Node getPrev() {
-            return prev;
-        }
-
-        public Node getNext() {
-            return next;
         }
     }
 
@@ -81,10 +69,30 @@ public class DuplexLinkedList<T> implements List<T> {
 
     @Override
     public void add(T t) {
+        addLast(t);
+    }
+
+    @Override
+    public void add(int index, T t) {
+        checkIndexOutOfBound(index, size);
+        if (head == null) {
+            add(t);
+        } else {
+            if (index == 0) {
+                addFirst(t);
+            } else {
+                Node prevNode = getNodeByIndex(index - 1);
+                prevNode.next = new Node(t, prevNode.next, prevNode);
+                size++;
+            }
+        }
+    }
+
+    public void addLast(T t) {
         //空链表
-        if (header == null) {
+        if (head == null) {
             //首尾都指向新的节点
-            tail = header = new Node(t, null, null);
+            tail = head = new Node(t, null, null);
         } else {
             Node newNode = new Node(t, null, tail);
             //让尾部的next指向新的节点
@@ -96,31 +104,16 @@ public class DuplexLinkedList<T> implements List<T> {
 
     }
 
-    @Override
-    public void add(int index, T t) {
-        checkIndexOutOfBound(index, size);
-        if (header == null) {
-            add(t);
-        } else {
-            if (index == 0) {
-                addToHeader(t);
-            } else {
-                Node prevNode = getNodeByIndex(index - 1);
-                prevNode.next = new Node(t, prevNode.next, prevNode);
-                size++;
-            }
-        }
-    }
 
     /**
      * 采用头插法 插入新节点
      *
      * @param element
      */
-    public void addToHeader(T element) {
-        header = new Node(element, header, null);
+    public void addFirst(T element) {
+        head = new Node(element, head, null);
         if (tail == null) {
-            tail = header;
+            tail = head;
         }
         size++;
     }
@@ -133,7 +126,7 @@ public class DuplexLinkedList<T> implements List<T> {
      */
     private Node getNodeByIndex(int index) {
         checkIndexOutOfBound(index, size - 1);
-        Node current = header;
+        Node current = head;
         for (int i = 0; i < size; i++, current = current.next) {
             if (index == i) {
                 return current;
@@ -153,7 +146,7 @@ public class DuplexLinkedList<T> implements List<T> {
 
     @Override
     public int indexOf(T t) {
-        Node current = header;
+        Node current = head;
         for (int i = 0; i < size; i++, current = current.next) {
             if (t == null && current.element == null) {
                 return i;
@@ -181,8 +174,12 @@ public class DuplexLinkedList<T> implements List<T> {
         Node delete;
         //如果删除的是头部
         if (index == 0) {
-            delete = header;
-            header = header.next;
+            delete = head;
+            if (head == tail) {
+                head = tail = null;
+            } else {
+                head = head.next;
+            }
         } else {
             Node pre = getNodeByIndex(index - 1);
             delete = pre.next;
@@ -195,9 +192,25 @@ public class DuplexLinkedList<T> implements List<T> {
 
     @Override
     public void clear() {
-        header = null;
+        head = null;
         tail = null;
         size = 0;
+    }
+
+    @Override
+    public String toString() {
+        if (size == 0) {
+            return "[]";
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("head [");
+        Node current = head;
+        while (current != null) {
+            builder.append(current.element).append("->");
+            current = current.next;
+        }
+        builder.append("null] tail");
+        return builder.toString();
     }
 
     @Override
@@ -239,11 +252,19 @@ public class DuplexLinkedList<T> implements List<T> {
         linkedList.add(2, "2");
         forEach(linkedList);
 
-        linkedList.addToHeader("-1 ");
+        linkedList.addFirst("-1 ");
         forEach(linkedList);
 
         linkedList.clear();
         System.out.println("clear()后的集合大小：" + linkedList.size());
+
+
+        DuplexLinkedList<String> linkedList2 = new DuplexLinkedList<>();
+        linkedList2.add("A");
+        linkedList2.add("B");
+        linkedList2.remove(0);
+        System.out.println("集合大小：" + linkedList2.size());
+
     }
 
     private static void forEach(List<String> linkedList) {

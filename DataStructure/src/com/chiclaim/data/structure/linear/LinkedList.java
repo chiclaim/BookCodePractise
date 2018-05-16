@@ -22,7 +22,7 @@ public class LinkedList<T> implements List<T> {
         return new MyIterator();
     }
 
-    class MyIterator implements Iterator<T> {
+    private class MyIterator implements Iterator<T> {
 
         private Node current = head;
 
@@ -42,8 +42,8 @@ public class LinkedList<T> implements List<T> {
      * 用于保存每个节点数据
      */
     private class Node {
-        private T element;
-        private Node next;
+        T element;
+        Node next;
 
         Node(T element, Node next) {
             this.element = element;
@@ -225,7 +225,11 @@ public class LinkedList<T> implements List<T> {
         //如果删除的是头部
         if (index == 0) {
             delete = head;
-            head = head.next;
+            if (head == tail) {
+                head = tail = null;
+            } else {
+                head = head.next;
+            }
         } else {
             Node pre = getNodeByIndex(index - 1);
             //待删除的节点
@@ -316,6 +320,10 @@ public class LinkedList<T> implements List<T> {
         linkedList2.removeFirst();
         linkedList2.removeFirst();
         System.out.println("after remove first:" + linkedList2);
+
+        linkedList2.add("A");
+        linkedList2.remove(0);
+        System.out.println(linkedList2);
 
     }
 
