@@ -190,19 +190,18 @@ public class LinkedList<T> implements List<T> {
      * @return element
      */
     public T removeFirst() {
-        Node delete = head;
-        if (delete == null) {
+        if (head == null) {
             throw new NoSuchElementException();
         }
+        Node delete = head;
         //如果当前只有一个节点
         if (delete == tail) {
             head = tail = null;
         } else {
-            Node next = delete.next;
-            //解除引用
-            delete.next = null;
             //重新设置header节点
-            head = next;
+            head = delete.next;
+            //解除被删除元素的next引用
+            delete.next = null;
         }
         size--;
         return delete.element;
@@ -224,12 +223,7 @@ public class LinkedList<T> implements List<T> {
         Node delete;
         //如果删除的是头部
         if (index == 0) {
-            delete = head;
-            if (head == tail) {
-                head = tail = null;
-            } else {
-                head = head.next;
-            }
+            return removeFirst();
         } else {
             Node pre = getNodeByIndex(index - 1);
             //待删除的节点

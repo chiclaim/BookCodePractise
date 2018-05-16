@@ -1,6 +1,7 @@
 package com.chiclaim.data.structure.linear;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 实现一个简易的线性表（双向链表）
@@ -174,17 +175,55 @@ public class DuplexLinkedList<T> implements List<T> {
         Node delete;
         //如果删除的是头部
         if (index == 0) {
-            delete = head;
-            if (head == tail) {
-                head = tail = null;
-            } else {
-                head = head.next;
-            }
+            return removeFirst();
         } else {
             Node pre = getNodeByIndex(index - 1);
             delete = pre.next;
             pre.next = delete.next;
             delete.next = null;
+        }
+        size--;
+        return delete.element;
+    }
+
+    /**
+     * 删除头结点
+     *
+     * @return
+     */
+    public T removeFirst() {
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        Node delete = head;
+        if (head == tail) {
+            head = tail = null;
+        } else {
+            head = delete.next;
+            delete.next = null;
+        }
+        size--;
+        return delete.element;
+    }
+
+
+    /**
+     * 删除尾节点
+     *
+     * @return
+     */
+    public T removeLast() {
+        if (tail == null) {
+            throw new NoSuchElementException();
+        }
+        Node delete = tail;
+        //如果只有一个元素
+        if (head == tail) {
+            head = tail = null;
+        } else {
+            Node pre = delete.prev;
+            pre.next = null;
+            tail = pre;
         }
         size--;
         return delete.element;
@@ -262,9 +301,12 @@ public class DuplexLinkedList<T> implements List<T> {
         DuplexLinkedList<String> linkedList2 = new DuplexLinkedList<>();
         linkedList2.add("A");
         linkedList2.add("B");
-        linkedList2.remove(0);
-        System.out.println("集合大小：" + linkedList2.size());
+        System.out.println("linkedList2:" + linkedList2);
+        linkedList2.removeFirst();
+        System.out.println("removeFirst():" + linkedList2);
 
+        linkedList2.addFirst("A");
+        System.out.println("addFirst(A):" + linkedList2);
     }
 
     private static void forEach(List<String> linkedList) {
