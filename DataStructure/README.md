@@ -1,6 +1,6 @@
-# 数据结构与算法
+## 数据结构与算法
 
-## 数据结构
+### 数据结构
 
    * [数组](https://blog.csdn.net/johnny901114/article/details/80158343)
    * [链表](https://blog.csdn.net/johnny901114/article/details/80351584)
@@ -20,7 +20,7 @@
    * 并查集
 
 
-## 算法
+### 算法
 
    * 选择排序
    * 冒泡排序
@@ -40,7 +40,7 @@
    * 最小生成树
    * 最短路径
 
-## 模拟实现的Java集合类
+### 模拟实现的Java集合类
 
    * ArrayList
    * Vector
