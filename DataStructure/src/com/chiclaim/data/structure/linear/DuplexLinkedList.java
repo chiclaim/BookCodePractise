@@ -158,6 +158,7 @@ public class DuplexLinkedList<T> implements List<T> {
                 }
             }
         } else {
+            //从头节点向尾节点方向遍历
             return getNode(index);
         }
         return null;
@@ -165,7 +166,7 @@ public class DuplexLinkedList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        Node node = getNode(index);
+        Node node = getNodeFast(index);
         if (node != null) {
             return node.element;
         }
@@ -204,10 +205,17 @@ public class DuplexLinkedList<T> implements List<T> {
         if (index == 0) {
             return removeFirst();
         } else {
-            Node pre = getNodeFast(index - 1);
-            delete = pre.next;
-            pre.next = delete.next;
+            delete = getNodeFast(index);
+            Node pre = delete.prev;
+            Node next = delete.next;
+            pre.next = next;
+            if (next != null) {
+                next.prev = pre;
+            } else {
+                tail = pre;
+            }
             delete.next = null;
+            delete.prev = null;
         }
         size--;
         return delete.element;
@@ -226,8 +234,10 @@ public class DuplexLinkedList<T> implements List<T> {
         if (head == tail) {
             head = tail = null;
         } else {
-            head = delete.next;
+            Node next = delete.next;
+            next.prev = null;
             delete.next = null;
+            head = next;
         }
         size--;
         return delete.element;
@@ -250,6 +260,7 @@ public class DuplexLinkedList<T> implements List<T> {
         } else {
             Node pre = delete.prev;
             pre.next = null;
+            delete.prev = null;
             tail = pre;
         }
         size--;
