@@ -2,8 +2,8 @@
 
 ## 数据结构
 
-   * 数组
-   * 链表
+   * [数组](https://blog.csdn.net/johnny901114/article/details/80158343)
+   * [链表](https://blog.csdn.net/johnny901114/article/details/80351584)
    * 栈
    * 队列
    * 哈希表
