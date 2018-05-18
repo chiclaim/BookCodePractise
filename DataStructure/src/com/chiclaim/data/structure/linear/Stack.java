@@ -7,7 +7,7 @@ import java.util.Iterator;
  * 顺序存储的栈
  * Created by Chiclaim on 2018/3/12.
  */
-public class SequenceStack<T> implements Iterable<T> {
+public class Stack<T> implements Iterable<T> {
 
     private static final int DEFAULT_SIZE = 10;
     //数组的长度
@@ -20,26 +20,26 @@ public class SequenceStack<T> implements Iterable<T> {
     private int size;
 
 
-    public SequenceStack() {
+    public Stack() {
         this.capacity = DEFAULT_SIZE;
         elementData = new Object[this.capacity];
     }
 
-    public SequenceStack(T element) {
+    public Stack(T element) {
         this();
         elementData[0] = element;
         size++;
     }
 
 
-    public SequenceStack(T element, int initSize) {
+    public Stack(T element, int initSize) {
         this.capacity = initSize;
         elementData = new Object[this.capacity];
         elementData[0] = element;
         size++;
     }
 
-    public SequenceStack(T element, int initSize, int capacityIncrement) {
+    public Stack(T element, int initSize, int capacityIncrement) {
         this(element, initSize);
         this.capacityIncrement = capacityIncrement;
     }
@@ -127,7 +127,7 @@ public class SequenceStack<T> implements Iterable<T> {
 
     public static void main(String[] args) {
 
-        SequenceStack<String> stack = new SequenceStack<>();
+        Stack<String> stack = new Stack<>();
         for (int i = 0; i < 12; i++) {
             stack.push(i + "");
         }

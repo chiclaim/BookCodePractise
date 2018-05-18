@@ -8,13 +8,13 @@ import java.util.Iterator;
  */
 public class LinkedStack<T> implements Iterable<T> {
 
-    private Node top;
-
+    //使用stackTop来记录当前栈顶的元素
+    private Node stackTop;
     private int size;
 
-    class Node {
-        private T element;
-        private Node next;
+    private class Node {
+        T element;
+        Node next;
 
         Node(T element, Node next) {
             this.element = element;
@@ -24,13 +24,13 @@ public class LinkedStack<T> implements Iterable<T> {
 
 
     public void push(T element) {
-        top = new Node(element, top);
+        stackTop = new Node(element, stackTop);
         size++;
     }
 
     public T pop() {
-        Node oldTop = top;
-        top = top.next;
+        Node oldTop = stackTop;
+        stackTop = stackTop.next;
         //释放原栈顶元素next引用
         oldTop.next = null;
         size--;
@@ -39,7 +39,7 @@ public class LinkedStack<T> implements Iterable<T> {
 
 
     public T peek() {
-        return top.element;
+        return stackTop.element;
     }
 
     public int size() {
@@ -51,7 +51,7 @@ public class LinkedStack<T> implements Iterable<T> {
     }
 
     public void clear() {
-        top = null;
+        stackTop = null;
         size = 0;
     }
 
@@ -65,7 +65,7 @@ public class LinkedStack<T> implements Iterable<T> {
     //2，iterator方法执行顺序：hasNext()->next()
     private class MyIterator implements Iterator<T> {
 
-        private Node current = top;
+        private Node current = stackTop;
 
         public boolean hasNext() {
             return current != null;
