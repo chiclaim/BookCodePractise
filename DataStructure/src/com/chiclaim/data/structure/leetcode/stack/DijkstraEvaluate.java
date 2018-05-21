@@ -2,6 +2,9 @@ package com.chiclaim.data.structure.leetcode.stack;
 
 import java.util.Stack;
 
+/**
+ * Dijkstra双栈表达式求职
+ */
 public class DijkstraEvaluate {
 
     private static double evaluate(String express) {
