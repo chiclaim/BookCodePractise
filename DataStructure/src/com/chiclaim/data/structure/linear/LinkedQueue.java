@@ -1,12 +1,13 @@
 package com.chiclaim.data.structure.linear;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 链式队列
  * Created by Chiclaim on 2018/3/13.
  */
-public class LinkedQueue<T> implements Iterable<T> {
+public class LinkedQueue<T> implements Iterable<T> ,Queue<T>{
 
 
     @Override
@@ -16,7 +17,7 @@ public class LinkedQueue<T> implements Iterable<T> {
 
     private class MyIterator implements Iterator<T> {
 
-        Node current = front;
+        Node current = head;
 
         @Override
         public boolean hasNext() {
@@ -42,11 +43,8 @@ public class LinkedQueue<T> implements Iterable<T> {
         }
     }
 
-    //用于保存队列的头部节点
-    private Node front;
-    //用于保存队列的尾部节点
-    private Node rear;
-    //队列大小
+    private Node head;
+    private Node tail;
     private int size;
 
     public LinkedQueue() {
@@ -54,47 +52,53 @@ public class LinkedQueue<T> implements Iterable<T> {
     }
 
     public LinkedQueue(T element) {
-        rear = front = new Node(element, null);
+        tail = head = new Node(element, null);
         size++;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
-    public void add(T element) {
+    @Override
+    public void enqueue(T element) {
         if (element == null) {
             throw new NullPointerException();
         }
-
-        //判断是否是空队列
-        if (front == null) {
-            rear = front = new Node(element, null);
+        if (head == null) {
+            tail = head = new Node(element, null);
         } else {
-            //创建新节点
             Node newNode = new Node(element, null);
-            //让尾节点的next指向新节点
-            rear.next = newNode;
-            //把新节点作为尾节点
-            rear = newNode;
+            tail.next = newNode;
+            tail = newNode;
         }
         size++;
     }
-
-    public T remove() {
-        Node oldFront = front;
-        front = oldFront.next;
+    @Override
+    public T dequeue() {
+        Node oldFront = head;
+        head = oldFront.next;
         oldFront.next = null;
         size--;
         return oldFront.element;
     }
 
+    @Override
+    public T getFront() {
+        if(head==null)
+            throw new NoSuchElementException();
+        return head.element;
+    }
+
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public void clear() {
-        rear = front = null;
+        tail = head = null;
         size = 0;
     }
 
@@ -105,7 +109,7 @@ public class LinkedQueue<T> implements Iterable<T> {
         }
         StringBuilder builder = new StringBuilder();
         builder.append("[");
-        for (Node current = front; current != null; current = current.next) {
+        for (Node current = head; current != null; current = current.next) {
             builder.append(current.element).append(",");
         }
         builder.deleteCharAt(builder.length() - 1);
@@ -116,11 +120,11 @@ public class LinkedQueue<T> implements Iterable<T> {
     public static void main(String[] args) {
         LinkedQueue<String> queue = new LinkedQueue<>();
         for (int i = 0; i < 10; i++) {
-            queue.add(i + "");
+            queue.enqueue(i + "");
         }
         System.out.println(queue);
 
-        System.out.println("删除元素：" + queue.remove());
+        System.out.println("删除元素：" + queue.dequeue());
 
         System.out.println("forEach遍历：");
         for (String str : queue) {
