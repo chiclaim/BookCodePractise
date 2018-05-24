@@ -9,4 +9,5 @@ public interface Queue<T> {
     T getFront();
     boolean isEmpty();
     int size();
+    void clear();
 }

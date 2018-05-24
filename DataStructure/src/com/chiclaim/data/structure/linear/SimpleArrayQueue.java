@@ -57,6 +57,7 @@ public class SimpleArrayQueue<T> implements Queue<T> {
         return size == 0;
     }
 
+    @Override
     public void clear() {
         Arrays.fill(data, null);
         size = 0;
