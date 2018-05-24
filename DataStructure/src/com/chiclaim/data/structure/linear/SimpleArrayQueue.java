@@ -30,6 +30,9 @@ public class SimpleArrayQueue<T> implements Queue<T> {
 
     @Override
     public T dequeue() {
+        if (size == 0) {
+            throw new NoSuchElementException();
+        }
         T d = data[0];
         data[0] = null;
         System.arraycopy(data, 1, data, 0, --size);
@@ -53,7 +56,6 @@ public class SimpleArrayQueue<T> implements Queue<T> {
     public boolean isEmpty() {
         return size == 0;
     }
-
 
     public void clear() {
         Arrays.fill(data, null);
