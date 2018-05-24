@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * 队列同样是一个被限制过的线性表
+ * 队列同样是一个被限制过的线性表（不支持扩容）
  * <p>
  * 队列只允许在队列的前端（front）删除元素，在队列的尾端（rear）插入元素
  * <p>

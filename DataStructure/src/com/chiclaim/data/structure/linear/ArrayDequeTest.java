@@ -8,7 +8,7 @@ import java.util.ArrayDeque;
 public class ArrayDequeTest {
 
 
-    private static void testAsStack(){
+    private static void testAsStack() {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
         for (int i = 0; i < 17; i++) {
             deque.push(i);
@@ -19,7 +19,7 @@ public class ArrayDequeTest {
         }
     }
 
-    private static void testAsQueue(){
+    private static void testAsQueue() {
         ArrayDeque<Integer> deque = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
             deque.addLast(i);
@@ -38,13 +38,13 @@ public class ArrayDequeTest {
         System.out.println("as a queue");
         //testAsQueue();
 
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
-        deque.addFirst(1);
-        deque.addFirst(2);
-        deque.addFirst(3);
-        deque.addFirst(4);
-        deque.addLast(5);
-        deque.addFirst(6);
+        ArrayDeque<String> deque = new ArrayDeque<>();
+        deque.addFirst("First1");
+        deque.addFirst("First2");
+        deque.addFirst("First3");
+        deque.addFirst("First4");
+        deque.addLast("Last1");
+        deque.addFirst("First5");
         System.out.println(deque);
 
     }
