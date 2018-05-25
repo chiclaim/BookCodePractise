@@ -9,24 +9,44 @@ public class ArrayDequeTest {
 
 
     private static void testAsStack() {
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < 17; i++) {
-            deque.push(i);
+            stack.push(i);
         }
-        deque.removeLast();
-        while (!deque.isEmpty()) {
-            System.out.println(deque.pop());
+        while (!stack.isEmpty()) {
+            System.out.println(stack.pop());
         }
     }
 
     private static void testAsQueue() {
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
         for (int i = 0; i < 10; i++) {
-            deque.addLast(i);
+            queue.addLast(i);
         }
-        while (!deque.isEmpty()) {
-            System.out.println(deque.removeFirst());
+        while (!queue.isEmpty()) {
+            System.out.println(queue.removeFirst());
         }
+    }
+
+
+    private static void testModAndBitWise() {
+        int count = Integer.MAX_VALUE;
+        int result = 0;
+        long start = System.nanoTime();
+        for (int i = 0; i < count; i++) {
+            result = i % 2;
+        }
+        long end = System.nanoTime();
+        System.out.println(" % time:" + (end - start) / 1000000000.0 + " sec");
+
+        long start2 = System.nanoTime();
+        for (int i = 0; i < count; i++) {
+            result = i & 2;
+        }
+        long end2 = System.nanoTime();
+        System.out.println(" & time:" + (end2 - start2) / 1000000000.0 + " sec");
+        System.out.println(result);
+
     }
 
     public static void main(String[] args) {
@@ -39,13 +59,28 @@ public class ArrayDequeTest {
         //testAsQueue();
 
         ArrayDeque<String> deque = new ArrayDeque<>();
-        deque.addFirst("First1");
-        deque.addFirst("First2");
-        deque.addFirst("First3");
-        deque.addFirst("First4");
-        deque.addLast("Last1");
-        deque.addFirst("First5");
+//        deque.addFirst("First1");
+//        deque.addFirst("First2");
+//        deque.addFirst("First3");
+//        deque.addFirst("First4");
+//        deque.addLast("Last1");
+//        deque.addFirst("First5");
+
+//        deque.addLast("Last1");
+//        deque.addLast("Last2");
+//        deque.addLast("Last3");
+//        deque.addLast("Last4");
+//        deque.addFirst("First1");
+//        deque.addFirst("First2");
+//        deque.addLast("Last5");
+
+        deque.addFirst("f1");
+        deque.removeLast();
+
+
         System.out.println(deque);
+
+        testModAndBitWise();
 
     }
 
