@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
- * 循环队列，如果队列满了扩容2倍
+ * 循环队列，%取模运算符来实现环形，如果队列满了扩容2倍
  * Created by Chiclaim on 2018/5/24.
  */
 public class LoopArrayQueue<T> implements Queue<T> {

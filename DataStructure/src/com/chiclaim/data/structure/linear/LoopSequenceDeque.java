@@ -1,7 +1,9 @@
 package com.chiclaim.data.structure.linear;
 
+import java.util.Arrays;
+
 /**
- * 双端队列(Double Ended Queue)
+ * 循环队列、双端队列，使用&位操作实现环形，参考java.util.ArrayDeque类
  * <p>
  * 双端队列代表一种特殊的队列，它可以在两端同时插入、删除操作。
  * <p>
@@ -23,33 +25,21 @@ package com.chiclaim.data.structure.linear;
  * <p>
  * Created by Chiclaim on 2018/3/13.
  */
-public class SequenceDeque<T> {
+public class LoopSequenceDeque<T> implements Queue<T> {
 
     private static final int DEFAULT_SIZE = 16;
 
     private Object[] elementData;
 
-    private int head;
+    private int head, tail;
 
-    private int tail;
-
-    private int capacity;
-
-    public SequenceDeque() {
-        this(DEFAULT_SIZE);
-    }
-
-    public SequenceDeque(int size) {
-        capacity = size;
-        elementData = new Object[capacity];
+    public LoopSequenceDeque() {
+        elementData = new Object[DEFAULT_SIZE];
     }
 
 
-    /**
-     * @param element
-     * @see SequenceDeque#addLast(Object)
-     */
-    public void add(T element) {
+    @Override
+    public void enqueue(T element) {
         addLast(element);
     }
 
@@ -114,7 +104,7 @@ public class SequenceDeque<T> {
      *
      * @return
      */
-    public T remove() {
+    public T dequeue() {
         return removeFirst();
     }
 
@@ -141,14 +131,32 @@ public class SequenceDeque<T> {
         return result;
     }
 
+    @Override
     public int size() {
         return (tail - head) & (elementData.length - 1);
+    }
+
+    @Override
+    public void clear() {
+        tail = head = 0;
+        Arrays.fill(elementData, null);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return tail == head;
+    }
+
+    @Override
+    public T getFront() {
+        return peekFirst();
     }
 
 
     public static void main(String[] args) {
 //        ArrayDeque deque = new ArrayDeque();
-        SequenceDeque deque = new SequenceDeque(16);//处理head和tail的时候通过&符号，数组大小size=2的n次幂
+        //处理head和tail的时候通过&符号，数组大小size为2的n次幂
+        LoopSequenceDeque deque = new LoopSequenceDeque();
         deque.addLast("L"); //index = 0 开始
         deque.addFirst("1");//index = size-1 开始
         deque.addFirst("2");
