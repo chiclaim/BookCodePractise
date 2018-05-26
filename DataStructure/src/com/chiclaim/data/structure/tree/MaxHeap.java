@@ -5,23 +5,23 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 
 /**
- * 堆
+ * 大顶堆
  */
-public class Heap<T extends Comparable<T>> {
+public class MaxHeap<T extends Comparable<T>> {
 
     private T[] data;
     private int size;
 
-    public Heap() {
+    public MaxHeap() {
         this(16);
     }
 
-    public Heap(int capacity) {
+    public MaxHeap(int capacity) {
         data = (T[]) new Comparable[capacity];
     }
 
     //Heapify
-    public Heap(T[] arr) {
+    public MaxHeap(T[] arr) {
         data = arr;
         size = arr.length;
         //对所有非叶子节点进行siftDown操作，从倒数第一个非叶子节点开始
@@ -92,7 +92,7 @@ public class Heap<T extends Comparable<T>> {
         if (size == 0)
             throw new NoSuchElementException();
 
-        T delete = data[0];
+        T delete = getMax();
         swap(0, size - 1);
         data[--size] = null;
 
@@ -123,15 +123,21 @@ public class Heap<T extends Comparable<T>> {
      * @return
      */
     public T replace(T element) {
-        T max = data[0];
+        T max = getMax();
         data[0] = element;
         siftDown(0);
         return max;
     }
 
+    public T getMax(){
+        if(size==0)
+            throw new NoSuchElementException();
+        return data[0];
+    }
+
 
     private static void testMaxHeap() {
-        Heap<Integer> heap = new Heap<>();
+        MaxHeap<Integer> heap = new MaxHeap<>();
         int count = 100;
         Random random = new Random();
         for (int i = 0; i < count; i++) {
@@ -141,7 +147,7 @@ public class Heap<T extends Comparable<T>> {
         System.out.println(Arrays.toString(values));
     }
 
-    private static int[] checkMaxHeap(Heap<Integer> heap) {
+    private static int[] checkMaxHeap(MaxHeap<Integer> heap) {
         int[] values = new int[heap.size];
         for (int i = 0; i < values.length; i++) {
             values[i] = heap.removeMax();
@@ -180,7 +186,7 @@ public class Heap<T extends Comparable<T>> {
         }
 
         long start = System.nanoTime();
-        Heap<Integer> heap = new Heap<>();
+        MaxHeap<Integer> heap = new MaxHeap<>();
         for (int i = 0; i < data.length; i++) {
             heap.add(i);
         }
@@ -189,7 +195,7 @@ public class Heap<T extends Comparable<T>> {
 
         //heapify
         long start2 = System.nanoTime();
-        Heap<Integer> heap2 = new Heap(data);
+        MaxHeap<Integer> heap2 = new MaxHeap(data);
         long end2 = System.nanoTime();
         System.out.println("with    heapify: " + (end2 - start2) / 100000000.0 + " sec");
 
