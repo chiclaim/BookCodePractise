@@ -5,7 +5,7 @@
    * [数组](https://blog.csdn.net/johnny901114/article/details/80158343)
    * [链表](https://blog.csdn.net/johnny901114/article/details/80351584)
    * [栈](https://blog.csdn.net/johnny901114/article/details/80373290)
-   * 队列
+   * [队列](https://blog.csdn.net/johnny901114/article/details/80456833)
    * 哈希表
    * 二叉树
    * 二分搜索树
@@ -42,13 +42,12 @@
 
 ### 模拟实现的Java集合类
 
-   * ArrayList
-   * Vector
-   * LinkedList
-   * Stack
-   * Queue
+   * [ArrayList](https://blog.csdn.net/johnny901114/article/details/80158343)
+   * [Vector](https://blog.csdn.net/johnny901114/article/details/80158343)
+   * [LinkedList](https://blog.csdn.net/johnny901114/article/details/80373290)
+   * [Stack](https://blog.csdn.net/johnny901114/article/details/80373290)
+   * [ArrayDeque](https://blog.csdn.net/johnny901114/article/details/80456833)
    * PriorityQueue
-   * ArrayDeque
    * HashMap
    * TreeMap
 
