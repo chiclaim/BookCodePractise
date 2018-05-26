@@ -40,7 +40,7 @@
    * 最小生成树
    * 最短路径
 
-### 模拟实现的Java集合类
+### 涉及的Java集合类
 
    * [ArrayList](https://blog.csdn.net/johnny901114/article/details/80158343)
    * [Vector](https://blog.csdn.net/johnny901114/article/details/80158343)
