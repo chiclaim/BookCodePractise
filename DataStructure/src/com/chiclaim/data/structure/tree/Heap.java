@@ -20,6 +20,16 @@ public class Heap<T extends Comparable<T>> {
         data = (T[]) new Comparable[capacity];
     }
 
+    //Heapify
+    public Heap(T[] arr) {
+        data = arr;
+        size = arr.length;
+        //对所有非叶子节点进行siftDown操作，从倒数第一个非叶子节点开始
+        for (int i = getParent(data.length - 1); i >= 0; i--) {
+            siftDown(i);
+        }
+    }
+
     public int size() {
         return size;
     }
@@ -106,26 +116,93 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * 删除最大值，插入新元素
+     *
+     * @param element max
+     * @return
+     */
+    public T replace(T element) {
+        T max = data[0];
+        data[0] = element;
+        siftDown(0);
+        return max;
+    }
+
+
+    private static void testMaxHeap() {
         Heap<Integer> heap = new Heap<>();
         int count = 100;
         Random random = new Random();
         for (int i = 0; i < count; i++) {
             heap.add(random.nextInt(1000));
         }
+        int[] values = checkMaxHeap(heap);
+        System.out.println(Arrays.toString(values));
+    }
 
-        int[] values = new int[count];
-        for (int i = 0; i < count; i++) {
+    private static int[] checkMaxHeap(Heap<Integer> heap) {
+        int[] values = new int[heap.size];
+        for (int i = 0; i < values.length; i++) {
             values[i] = heap.removeMax();
         }
 
         //check
-        for (int i = 1; i < count; i++) {
+        for (int i = 1; i < values.length; i++) {
             if (values[i - 1] < values[i])
                 throw new IllegalStateException();
         }
 
-        System.out.println(Arrays.toString(values));
+        return values;
+
+    }
+
+    private static void heapifyVsNoHeapify() {
+            /*
+                10万个数据
+                without heapify: 0.20134547 sec
+                with    heapify: 0.28973186 sec
+
+                100万个数据
+                without heapify: 2.54230192 sec
+                with    heapify: 0.78025752 sec
+
+                1000万个数据
+                without heapify: 46.96635561 sec
+                with    heapify: 2.81621934 sec
+             */
+        int count = 1000000;
+        //随机生成数组
+        Integer[] data = new Integer[count];
+        Random random = new Random();
+        for (int i = 0; i < count; i++) {
+            data[i] = random.nextInt(Integer.MAX_VALUE);
+        }
+
+        long start = System.nanoTime();
+        Heap<Integer> heap = new Heap<>();
+        for (int i = 0; i < data.length; i++) {
+            heap.add(i);
+        }
+        long end = System.nanoTime();
+        System.out.println("without heapify: " + (end - start) / 100000000.0 + " sec");
+
+        //heapify
+        long start2 = System.nanoTime();
+        Heap<Integer> heap2 = new Heap(data);
+        long end2 = System.nanoTime();
+        System.out.println("with    heapify: " + (end2 - start2) / 100000000.0 + " sec");
+
+
+        checkMaxHeap(heap);
+        checkMaxHeap(heap2);
+
+    }
+
+
+    public static void main(String[] args) {
+//        testMaxHeap();
+        heapifyVsNoHeapify();
     }
 
 
