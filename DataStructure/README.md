@@ -5,7 +5,7 @@
    * [数组](https://blog.csdn.net/johnny901114/article/details/80158343)
    * [链表](https://blog.csdn.net/johnny901114/article/details/80351584)
    * [栈](https://blog.csdn.net/johnny901114/article/details/80373290)
-   * [队列](https://blog.csdn.net/johnny901114/article/details/80456833)
+   * [队列](https://blog.csdn.net/johnny901114/article/details/80456833)、优先队列
    * 哈希表
    * 二叉树
    * 二分搜索树
