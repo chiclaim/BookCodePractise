@@ -269,5 +269,10 @@ public class BST<T extends Comparable<T>> {
 
         System.out.println("max: " + bst.getMax());
         System.out.println("min: " + bst.getMin());
+
+        bst.removeMin();
+        bst.removeMax();
+
+        bst.levelorder();
     }
 }
