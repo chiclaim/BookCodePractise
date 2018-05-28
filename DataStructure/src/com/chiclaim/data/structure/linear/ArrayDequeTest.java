@@ -74,13 +74,18 @@ public class ArrayDequeTest {
 //        deque.addFirst("First2");
 //        deque.addLast("Last5");
 
-        deque.addFirst("f1");
-        deque.removeLast();
-
+        for (int i = 0; i < 16; i++) {
+            if (i < 6) {
+                deque.addLast("" + i);
+            } else {
+                deque.addFirst("" + i);
+            }
+        }
 
         System.out.println(deque);
 
-        testModAndBitWise();
+        //testModAndBitWise();
+
 
     }
 
