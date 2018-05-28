@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * 循环队列（顺序存储）
+ * 循环队列（顺序存储）不支持扩容
  * Created by Chiclaim on 2018/3/12.
  */
-public class LoopSequenceQueue<T> implements Iterable<T> {
+public class LoopFixedSizeQueue<T> implements Iterable<T>, Queue<T> {
 
     private static final int DEFAULT_SIZE = 10;
 
@@ -22,26 +22,28 @@ public class LoopSequenceQueue<T> implements Iterable<T> {
     //用于存储队列里的元素
     private Object[] elementData;
 
-    public LoopSequenceQueue() {
+    public LoopFixedSizeQueue() {
         this.capacity = DEFAULT_SIZE;
         elementData = new Object[capacity];
     }
 
-    public LoopSequenceQueue(T element) {
+    public LoopFixedSizeQueue(T element) {
         this(element, DEFAULT_SIZE);
     }
 
 
-    public LoopSequenceQueue(T element, int initSize) {
+    public LoopFixedSizeQueue(T element, int initSize) {
         this.capacity = initSize;
         elementData = new Object[capacity];
         elementData[rear++] = element;
     }
 
+    @Override
     public int size() {
         return rear - front;
     }
 
+    @Override
     public boolean isEmpty() {
         //环形队列"假满"的时候rear = front，所以还需要判断数组的第一个元素是否为空
         //但是也有可能开发者放进去的第一个元素就是null，其他的位置不是null，这个时候就会有问题
@@ -50,8 +52,8 @@ public class LoopSequenceQueue<T> implements Iterable<T> {
         return rear == front && elementData[rear] == null;
     }
 
-
-    public void add(T element) {
+    @Override
+    public void enqueue(T element) {
         if (element == null) {
             throw new NullPointerException();
         }
@@ -63,7 +65,8 @@ public class LoopSequenceQueue<T> implements Iterable<T> {
         rear = rear == capacity ? 0 : rear;
     }
 
-    public T remove() {
+    @Override
+    public T dequeue() {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("队列为空");
         }
@@ -74,14 +77,15 @@ public class LoopSequenceQueue<T> implements Iterable<T> {
         return removedElement;
     }
 
-
-    public T get() {
+    @Override
+    public T getFront() {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("队列为空");
         }
         return (T) elementData[front];
     }
 
+    @Override
     public void clear() {
         Arrays.fill(elementData, null);
         front = 0;
@@ -137,17 +141,17 @@ public class LoopSequenceQueue<T> implements Iterable<T> {
     }
 
     public static void main(String[] args) {
-        LoopSequenceQueue<String> queue = new LoopSequenceQueue<>("aaa", 3);
-        queue.add("bbb");
-        queue.add("ccc");
+        LoopFixedSizeQueue<String> queue = new LoopFixedSizeQueue<>("aaa", 3);
+        queue.enqueue("bbb");
+        queue.enqueue("ccc");
         System.out.println(queue);
 
         //模拟front>rear
-        queue.remove();
+        queue.dequeue();
         System.out.println(queue);
 
         //模拟rear=front
-        queue.add("ddd");
+        queue.enqueue("ddd");
         System.out.println(queue);
     }
 
