@@ -11,11 +11,7 @@ public class Recurse {
     }
 
     public int factorial2(int num, int result) {
-        if (num < 0) {
-            return 0;
-        } else if (num == 0) {
-            return 1;
-        } else if (num == 1) {
+        if (num == 1) {
             return result;
         }
         return factorial2(num - 1, num * result);
@@ -24,7 +20,7 @@ public class Recurse {
     public static void main(String[] args) {
         Recurse recurse = new Recurse();
         int num = 7;
-//        System.out.println(recurse.factorial2(num, 1));
+        System.out.println(recurse.factorial2(num, 1));
         System.out.println(recurse.factorial(num));
 
 
