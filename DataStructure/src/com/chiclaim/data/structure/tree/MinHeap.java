@@ -5,23 +5,23 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 
 /**
- * 大顶堆
+ * 小顶堆
  */
-public class MaxHeap<T extends Comparable<T>> {
+public class MinHeap<T extends Comparable<T>> {
 
     private T[] data;
     private int size;
 
-    public MaxHeap() {
+    public MinHeap() {
         this(16);
     }
 
-    public MaxHeap(int capacity) {
+    public MinHeap(int capacity) {
         data = (T[]) new Comparable[capacity];
     }
 
     //Heapify
-    public MaxHeap(T[] arr) {
+    public MinHeap(T[] arr) {
         data = arr;
         size = arr.length;
         //对所有非叶子节点进行siftDown操作，从倒数第一个非叶子节点开始
@@ -78,21 +78,21 @@ public class MaxHeap<T extends Comparable<T>> {
 
     private void siftUp(int index) {
         int parentIndex;
-        //如果当前的节点比父节点要大
-        while (index > 0 && data[index].compareTo(data[parentIndex = getParent(index)]) > 0) {
+        //如果当前的节点比父节点要小
+        while (index > 0 && data[index].compareTo(data[parentIndex = getParent(index)]) < 0) {
             swap(index, parentIndex);
             index = parentIndex;
         }
     }
 
     /**
-     * 移除堆中最大元素
+     * 移除堆顶元素
      */
-    public T removeMax() {
+    public T removeTop() {
         if (size == 0)
             throw new NoSuchElementException();
 
-        T delete = getMax();
+        T delete = getTop();
         swap(0, size - 1);
         data[--size] = null;
 
@@ -104,58 +104,59 @@ public class MaxHeap<T extends Comparable<T>> {
     private void siftDown(int index) {
         int left;
         while ((left = getLeft(index)) < size) {
-            int max = left;
-            if (left + 1 < size && data[left + 1].compareTo(data[left]) > 0) {
-                max = left + 1;
+            int min = left;
+            //有右节点并且右节点小于左节点
+            if (left + 1 < size && data[left + 1].compareTo(data[left]) < 0) {
+                min = left + 1;
             }
-            if (data[max].compareTo(data[index]) <= 0) {
+            if (data[min].compareTo(data[index]) >= 0) {
                 break;
             }
-            swap(index, max);
-            index = max;
+            swap(index, min);
+            index = min;
         }
     }
 
     /**
-     * 删除最大值，插入新元素
+     * 删除堆顶元素，插入新元素
      *
      * @param element max
      * @return
      */
     public T replace(T element) {
-        T max = getMax();
+        T max = getTop();
         data[0] = element;
         siftDown(0);
         return max;
     }
 
-    public T getMax(){
+    public T getTop(){
         if(size==0)
             throw new NoSuchElementException();
         return data[0];
     }
 
-
-    private static void testMaxHeap() {
-        MaxHeap<Integer> heap = new MaxHeap<>();
+    private static void testHeap() {
+        MinHeap<Integer> heap = new MinHeap<>();
         int count = 100;
         Random random = new Random();
         for (int i = 0; i < count; i++) {
             heap.add(random.nextInt(1000));
         }
-        int[] values = checkMaxHeap(heap);
+        int[] values = checkMinHeap(heap);
         System.out.println(Arrays.toString(values));
     }
 
-    private static int[] checkMaxHeap(MaxHeap<Integer> heap) {
+
+    private static int[] checkMinHeap(MinHeap<Integer> heap) {
         int[] values = new int[heap.size];
         for (int i = 0; i < values.length; i++) {
-            values[i] = heap.removeMax();
+            values[i] = heap.removeTop();
         }
 
         //check
         for (int i = 1; i < values.length; i++) {
-            if (values[i - 1] < values[i])
+            if (values[i - 1] > values[i])
                 throw new IllegalStateException();
         }
 
@@ -186,7 +187,7 @@ public class MaxHeap<T extends Comparable<T>> {
         }
 
         long start = System.nanoTime();
-        MaxHeap<Integer> heap = new MaxHeap<>();
+        MinHeap<Integer> heap = new MinHeap<>();
         for (int i = 0; i < data.length; i++) {
             heap.add(i);
         }
@@ -195,19 +196,19 @@ public class MaxHeap<T extends Comparable<T>> {
 
         //heapify
         long start2 = System.nanoTime();
-        MaxHeap<Integer> heap2 = new MaxHeap(data);
+        MinHeap<Integer> heap2 = new MinHeap(data);
         long end2 = System.nanoTime();
         System.out.println("with    heapify: " + (end2 - start2) / 100000000.0 + " sec");
 
 
-        checkMaxHeap(heap);
-        checkMaxHeap(heap2);
+        checkMinHeap(heap);
+        checkMinHeap(heap2);
 
     }
 
 
     public static void main(String[] args) {
-        testMaxHeap();
+        testHeap();
         heapifyVsNoHeapify();
     }
 
