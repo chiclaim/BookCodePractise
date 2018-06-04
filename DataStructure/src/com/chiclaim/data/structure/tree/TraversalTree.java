@@ -8,7 +8,7 @@ import java.util.List;
  * 二叉树的遍历（深度优先、广度优先）
  * Created by Chiclaim on 2018/3/19.
  */
-public class LoopTree {
+public class TraversalTree {
 
     private ThreeLinkedBinaryTree<String> threeLinkedBinaryTree = new ThreeLinkedBinaryTree<>("0");
 
@@ -141,7 +141,7 @@ public class LoopTree {
 
 
     public static void main(String[] args) {
-        LoopTree loopTree = new LoopTree();
+        TraversalTree loopTree = new TraversalTree();
         loopTree.initData();
         loopTree.loopByDeep();
         loopTree.loopByBreadth();
