@@ -6,7 +6,6 @@
    * [链表](https://blog.csdn.net/johnny901114/article/details/80351584)
    * [栈](https://blog.csdn.net/johnny901114/article/details/80373290)
    * [队列](https://blog.csdn.net/johnny901114/article/details/80456833)、[优先队列](https://blog.csdn.net/johnny901114/article/details/80550279)
-   * 哈希表
    * 二叉树
    * 二分搜索树
    * 平衡二叉树
@@ -18,7 +17,18 @@
    * 线段树
    * KD树
    * 并查集
+   * 哈希表
 
+### 涉及的Java集合类
+
+   * [ArrayList](https://blog.csdn.net/johnny901114/article/details/80158343)
+   * [Vector](https://blog.csdn.net/johnny901114/article/details/80158343)
+   * [LinkedList](https://blog.csdn.net/johnny901114/article/details/80373290)
+   * [Stack](https://blog.csdn.net/johnny901114/article/details/80373290)
+   * [ArrayDeque](https://blog.csdn.net/johnny901114/article/details/80456833)
+   * [PriorityQueue](https://blog.csdn.net/johnny901114/article/details/80550279)
+   * HashMap
+   * TreeMap
 
 ### 算法
 
@@ -40,15 +50,6 @@
    * 最小生成树
    * 最短路径
 
-### 涉及的Java集合类
 
-   * [ArrayList](https://blog.csdn.net/johnny901114/article/details/80158343)
-   * [Vector](https://blog.csdn.net/johnny901114/article/details/80158343)
-   * [LinkedList](https://blog.csdn.net/johnny901114/article/details/80373290)
-   * [Stack](https://blog.csdn.net/johnny901114/article/details/80373290)
-   * [ArrayDeque](https://blog.csdn.net/johnny901114/article/details/80456833)
-   * [PriorityQueue](https://blog.csdn.net/johnny901114/article/details/80550279)
-   * HashMap
-   * TreeMap
 
 
