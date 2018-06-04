@@ -3,6 +3,8 @@ package com.chiclaim.data.structure.tree;
 import java.util.Arrays;
 
 /**
+ * 二叉树的顺序存储
+ * <p>
  * 对于普通的树来说，它遵循的规律太少，程序控制起来反而更加复杂，因此限制了它在实际应用中的使用。
  * <p>
  * 如果对普通树增加一些限制，让一棵树中每个节点最多只能包含两个子节点，而且严格区分左子节点、右子节点（左右位置不能交换），
@@ -21,9 +23,9 @@ import java.util.Arrays;
  * <p>
  * 5，获取索引为index的父节点：parentIndex = (index - 1) / 2
  * <p>
- *  对于普通的二叉树（不是满二叉树），哪些空出来的节点对应的数组元素留空就可以了，
- *  由此，二叉树采用顺序存储会造成一定的内存空间浪费，如果该二叉树是完全二叉树，就不会有任何空间浪费了；
- *  如果该二叉树的所有节点都只有右子节点，那么就会产生相当大的空间浪费。
+ * 对于普通的二叉树（不是满二叉树），哪些空出来的节点对应的数组元素留空就可以了，
+ * 由此，二叉树采用顺序存储会造成一定的内存空间浪费，如果该二叉树是完全二叉树，就不会有任何空间浪费了；
+ * 如果该二叉树的所有节点都只有右子节点，那么就会产生相当大的空间浪费。
  * <p>
  */
 public class ArrayBinaryTree<T> {
@@ -152,10 +154,10 @@ public class ArrayBinaryTree<T> {
 
         System.out.println(arrayBinaryTree);
 
-        System.out.println("索引为1的左节点："+arrayBinaryTree.getLeft(1));
-        System.out.println("索引为1的右节点："+arrayBinaryTree.getRight(1));
-        System.out.println("索引为1的父节点："+arrayBinaryTree.getParent(1));
-        System.out.println("数据为1的索引："+arrayBinaryTree.indexOf(1));
+        System.out.println("索引为1的左节点：" + arrayBinaryTree.getLeft(1));
+        System.out.println("索引为1的右节点：" + arrayBinaryTree.getRight(1));
+        System.out.println("索引为1的父节点：" + arrayBinaryTree.getParent(1));
+        System.out.println("数据为1的索引：" + arrayBinaryTree.indexOf(1));
 
     }
 
