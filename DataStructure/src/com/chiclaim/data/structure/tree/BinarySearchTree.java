@@ -43,7 +43,7 @@ import java.util.List;
 
 
  */
-public class SortedBinaryTree<T extends Comparable> {
+public class BinarySearchTree<T extends Comparable> {
 
     private static class Node {
         Object data;
@@ -67,11 +67,11 @@ public class SortedBinaryTree<T extends Comparable> {
     //根节点
     private Node root;
 
-    public SortedBinaryTree() {
+    public BinarySearchTree() {
 
     }
 
-    public SortedBinaryTree(T data) {
+    public BinarySearchTree(T data) {
         root = new Node(data, null, null, null);
     }
 
@@ -250,7 +250,7 @@ public class SortedBinaryTree<T extends Comparable> {
     }
 
     public static void main(String[] args) {
-        SortedBinaryTree<Integer> tree = new SortedBinaryTree<>();
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
         tree.add(5);
         tree.add(20);
         tree.add(10);
