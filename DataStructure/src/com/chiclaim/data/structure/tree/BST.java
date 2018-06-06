@@ -250,6 +250,59 @@ public class BST<T extends Comparable<T>> {
         return node;
     }
 
+    /**
+     * 删除任意节点
+     *
+     * @param e
+     */
+    public void remove(T e) {
+        root = remove(root, e);
+    }
+
+    private Node<T> remove(Node<T> node, T element) {
+        if (node == null) {
+            return null;
+        }
+
+        //如果要删除的节点小于当前节点，继续查询其左子树
+        if (element.compareTo(node.value) < 0) {
+            node.left = remove(node.left, element);
+            return node;
+        }
+        //如果要删除的节点大于当前节点，继续查询其右子树
+        if (element.compareTo(node.value) > 0) {
+            node.right = remove(node.right, element);
+            return node;
+        }
+
+        //=======要删除的节点就是当前的节点
+
+        //如果要删除节点的左子树为空
+        if (node.left == null) {
+            Node<T> rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+
+        //如果要删除节点的右子树为空
+        if (node.right == null) {
+            Node<T> leftNode = node.left;
+            node.left = null;
+            size--;
+            return leftNode;
+        }
+
+        //=======如果要删除的节点左右子树都不为空
+
+        //找到要删除节点的后继，也就是右子树的最小值
+        Node<T> successor = getMin(node.right);
+        successor.right = removeMin(node.right);
+        successor.left = node.left;
+        node.left = node.right = null;
+        return successor;
+    }
+
     public static void main(String[] args) {
         BST<Integer> bst = new BST<>();
         int[] nums = new int[]{5, 3, 6, 8, 4, 2};
@@ -257,22 +310,26 @@ public class BST<T extends Comparable<T>> {
             bst.add(value);
         }
 
+        System.out.println("前序遍历（递归）：");
         bst.preorder();
-        System.out.println();
+        System.out.println("前序遍历（非递归）：");
         bst.preorderNoRecurse();
-        System.out.println();
+        System.out.println("中序遍历");
         bst.inorder();
-        System.out.println();
+        System.out.println("后序遍历");
         bst.postorder();
-        System.out.println();
+        System.out.println("广度优先遍历");
         bst.levelorder();
 
-        System.out.println("max: " + bst.getMax());
-        System.out.println("min: " + bst.getMin());
+        System.out.println("get max: " + bst.getMax());
+        System.out.println("get min: " + bst.getMin());
 
         bst.removeMin();
         bst.removeMax();
+        bst.inorder();
 
-        bst.levelorder();
+        System.out.println("删除元素5");
+        bst.remove(5);
+        bst.inorder();
     }
 }
