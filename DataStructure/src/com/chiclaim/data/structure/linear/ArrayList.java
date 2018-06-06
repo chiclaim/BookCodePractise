@@ -165,6 +165,16 @@ public class ArrayList<T> implements List<T> {
     }
 
     @Override
+    public boolean contains(T t) {
+        return indexOf(t) != -1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
     public int size() {
         return size;
     }

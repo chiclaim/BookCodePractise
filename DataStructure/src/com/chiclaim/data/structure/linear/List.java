@@ -19,4 +19,8 @@ public interface List<T> extends Iterable<T> {
     void clear();
 
     int size();
+
+    boolean contains(T t);
+
+    boolean isEmpty();
 }

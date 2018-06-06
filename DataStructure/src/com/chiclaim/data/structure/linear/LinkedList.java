@@ -146,6 +146,16 @@ public class LinkedList<T> implements List<T> {
     }
 
     @Override
+    public boolean contains(T t) {
+        return indexOf(t) != -1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
     public int indexOf(T t) {
         Node current = head;
         for (int i = 0; i < size; i++, current = current.next) {
@@ -270,6 +280,8 @@ public class LinkedList<T> implements List<T> {
         for (int i = 0; i < 10; i++) {
             linkedList.add(i + "");
         }
+
+        System.out.println("contains 1 ? " + linkedList.contains("1"));
 
         System.out.println("forEach方式遍历：");
         forEach(linkedList);
