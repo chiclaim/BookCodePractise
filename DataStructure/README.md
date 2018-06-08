@@ -8,16 +8,15 @@
    * [队列](https://blog.csdn.net/johnny901114/article/details/80456833)、[优先队列](https://blog.csdn.net/johnny901114/article/details/80550279)
    * [二叉树](https://blog.csdn.net/johnny901114/article/details/80574803)
    * [二分搜索树](https://blog.csdn.net/johnny901114/article/details/80598727)
-   * 平衡二叉树
-   * AVL
-   * 红黑树
-   * 哈夫曼树
-   * Trie
-   * 堆
    * 线段树
-   * KD树
+   * Trie
    * 并查集
+   * 红黑树
+   * AVL
+   * KD树
    * 哈希表
+   * 哈夫曼树
+   * 堆
 
 ### 涉及的Java集合类
 
@@ -29,6 +28,11 @@
    * [PriorityQueue](https://blog.csdn.net/johnny901114/article/details/80550279)
    * HashMap
    * TreeMap
+   * LinkedHashMap
+   * HashSet
+   * TreeSet
+   * LinkedHashSet
+
 
 ### 算法
 
