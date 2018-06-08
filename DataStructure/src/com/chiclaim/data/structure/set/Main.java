@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Main {
 
 
-    private static double test(Set<String> set, String filename) {
+    private static double countTime(Set<String> set, String filename) {
         long start = System.nanoTime();
         System.out.println(filename);
         ArrayList<String> words1 = new ArrayList<>();
@@ -30,11 +30,11 @@ public class Main {
 
     public static void main(String[] args) {
         String filename = "pride-and-prejudice.txt";
-        double bstTime = test(new BSTSet<>(), filename);
+        double bstTime = countTime(new BSTSet<>(), filename);
 
         System.out.println();
 
-        double linkedListTime = test(new LinkedListSet<>(), filename);
+        double linkedListTime = countTime(new LinkedListSet<>(), filename);
 
         System.out.println();
 

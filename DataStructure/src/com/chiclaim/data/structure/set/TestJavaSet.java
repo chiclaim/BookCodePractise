@@ -41,7 +41,6 @@ public class TestJavaSet {
         printSet(linkedHashSet);
     }
 
-
     private static void testHahSet() {
         // TODO: 2018/6/8 为什么是有序的
         HashSet<Integer> hashSet = new HashSet<>();
