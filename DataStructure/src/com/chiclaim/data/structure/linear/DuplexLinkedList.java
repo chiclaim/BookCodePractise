@@ -295,6 +295,16 @@ public class DuplexLinkedList<T> implements List<T> {
         return size;
     }
 
+    @Override
+    public boolean contains(T t) {
+        return indexOf(t) != -1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
 
     public static void main(String[] args) {
         DuplexLinkedList<String> linkedList = new DuplexLinkedList<>();
