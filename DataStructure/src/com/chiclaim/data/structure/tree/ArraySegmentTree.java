@@ -28,21 +28,70 @@ public class ArraySegmentTree<T> {
 
     }
 
-    private void buildSegmentTree(int index, int left, int right) {
-        if (left == right) {
-            tree[index] = data[left];
+
+    /**
+     * 构建线段树
+     * @param treeIndex 当前需要添加节点的索引
+     * @param treeLeft  treeIndex左边界
+     * @param treeRight treeIndex右边界
+     */
+    private void buildSegmentTree(int treeIndex, int treeLeft, int treeRight) {
+        if (treeLeft == treeRight) {
+            tree[treeIndex] = data[treeLeft];
             return;
         }
 
-        int leftTreeIndex = getLeft(index);
-        int rightTreeIndex = getRight(index);
+        int leftTreeIndex = getLeft(treeIndex);
+        int rightTreeIndex = getRight(treeIndex);
         //int mid = (left+right)/2;
-        int mid = left + (right - left) / 2;
-        buildSegmentTree(leftTreeIndex, left, mid);
-        buildSegmentTree(rightTreeIndex, mid + 1, right);
+        int mid = treeLeft + (treeRight - treeLeft) / 2;
+        buildSegmentTree(leftTreeIndex, treeLeft, mid);
+        buildSegmentTree(rightTreeIndex, mid + 1, treeRight);
 
-        tree[index] = merger.merge(tree[leftTreeIndex], tree[rightTreeIndex]);
+        tree[treeIndex] = merger.merge(tree[leftTreeIndex], tree[rightTreeIndex]);
 
+    }
+
+    public T query(int start, int end) {
+        return query(0, 0, data.length - 1, start, end);
+    }
+
+    /**
+     * @param treeIndex 当前查找的节点
+     * @param treeLeft  treeIndex的左边界
+     * @param treeRight treeIndex的右边界
+     * @param queryL    用户需要查找的左边界
+     * @param queryR    用户需要查找的右边界
+     * @return
+     */
+    private T query(int treeIndex, int treeLeft, int treeRight, int queryL, int queryR) {
+
+        //1, 需要查找的范围完刚好在这个treeIndex节点的区间
+        if (treeLeft == queryL && treeRight == queryR) {
+            return tree[treeIndex];
+        }
+
+        //当前节点的区间的中间点
+        int mid = treeLeft + (treeRight - treeLeft) / 2;
+        //左子树索引
+        int leftTreeIndex = getLeft(treeIndex);
+        //右子树索引
+        int rightTreeIndex = getRight(treeIndex);
+
+
+        //2, 需要查找的范围完全在左子树的区间里
+        if (queryR <= mid) {
+            return query(leftTreeIndex, treeLeft, mid, queryL, queryR);
+        }
+        //3, 需要查找的范围完全在右子树区间里
+        if (queryL >= mid + 1) {
+            return query(rightTreeIndex, mid + 1, treeRight, queryL, queryR);
+        }
+
+        //需要查找的范围一部分在左子树里，一部分在右子树中
+        T left = query(leftTreeIndex, treeLeft, mid, queryL, mid);
+        T right = query(rightTreeIndex, mid + 1, treeRight, mid + 1, queryR);
+        return merger.merge(left, right);
     }
 
     public T get(int index) {
@@ -81,6 +130,8 @@ public class ArraySegmentTree<T> {
         ArraySegmentTree<Integer> segmentTree = new ArraySegmentTree<>(numbers,
                 (a, b) -> a + b);
         System.out.println(segmentTree.toString());
+
+        System.out.println(segmentTree.query(1, 3));
     }
 
 }
