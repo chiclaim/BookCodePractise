@@ -1,5 +1,8 @@
 package com.chiclaim.data.structure.tree;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * 线段树
  *
@@ -17,6 +20,9 @@ public class ArraySegmentTree<T> {
     }
 
     public ArraySegmentTree(T[] arr, Merger<T> merger) {
+        if (arr == null || arr.length == 0) {
+            return;
+        }
         this.merger = merger;
         data = (T[]) new Object[arr.length];
         for (int i = 0; i < data.length; i++) {
@@ -31,6 +37,7 @@ public class ArraySegmentTree<T> {
 
     /**
      * 构建线段树
+     *
      * @param treeIndex 当前需要添加节点的索引
      * @param treeLeft  treeIndex左边界
      * @param treeRight treeIndex右边界
@@ -40,14 +47,17 @@ public class ArraySegmentTree<T> {
             tree[treeIndex] = data[treeLeft];
             return;
         }
-
+        //当前节点左子树索引
         int leftTreeIndex = getLeft(treeIndex);
+        //当前节点右子树索引
         int rightTreeIndex = getRight(treeIndex);
         //int mid = (left+right)/2;
         int mid = treeLeft + (treeRight - treeLeft) / 2;
+        //构建左子树
         buildSegmentTree(leftTreeIndex, treeLeft, mid);
+        //构建右子树
         buildSegmentTree(rightTreeIndex, mid + 1, treeRight);
-
+        //当前节点存放的值
         tree[treeIndex] = merger.merge(tree[leftTreeIndex], tree[rightTreeIndex]);
 
     }
@@ -94,6 +104,32 @@ public class ArraySegmentTree<T> {
         return merger.merge(left, right);
     }
 
+    public void update(int index, T e) {
+        data[index] = e;
+        update(0, 0, data.length - 1, index, e);
+    }
+
+
+    private void update(int treeIndex, int treeLeft, int treeRight, int index, T e) {
+        if (treeLeft == treeRight) {
+            tree[treeIndex] = e;
+            return;
+        }
+
+        int mid = treeLeft + (treeRight - treeLeft) / 2;
+        int leftChildIndex = getLeft(treeIndex);
+        int rightChildIndex = getRight(treeIndex);
+
+        if (index <= mid) {
+            update(leftChildIndex, treeLeft, mid, index, e);
+        } else if (index >= mid + 1) {
+            update(rightChildIndex, mid + 1, treeRight, index, e);
+        }
+
+        //更改完叶子节点后，还需要对他的所有祖辈节点更新
+        tree[treeIndex] = merger.merge(tree[leftChildIndex], tree[rightChildIndex]);
+    }
+
     public T get(int index) {
         return data[0];
     }
@@ -132,6 +168,14 @@ public class ArraySegmentTree<T> {
         System.out.println(segmentTree.toString());
 
         System.out.println(segmentTree.query(1, 3));
-    }
 
+        System.out.println("index为1的值改成3");
+        segmentTree.update(1, 3);
+
+        System.out.println(segmentTree.toString());
+
+        System.out.println(segmentTree.query(1, 3));
+
+
+    }
 }
