@@ -76,8 +76,10 @@ public class ArraySegmentTree<T> {
      */
     private T query(int treeIndex, int treeLeft, int treeRight, int queryL, int queryR) {
 
+        System.out.println(treeLeft + "," + treeRight + "----------" + queryL + "," + queryR);
         //1, 需要查找的范围完刚好在这个treeIndex节点的区间
         if (treeLeft == queryL && treeRight == queryR) {
+            System.out.println(tree[treeIndex]);
             return tree[treeIndex];
         }
 
@@ -98,9 +100,10 @@ public class ArraySegmentTree<T> {
             return query(rightTreeIndex, mid + 1, treeRight, queryL, queryR);
         }
 
-        //需要查找的范围一部分在左子树里，一部分在右子树中
+        //4，需要查找的范围一部分在左子树里，一部分在右子树中
         T left = query(leftTreeIndex, treeLeft, mid, queryL, mid);
         T right = query(rightTreeIndex, mid + 1, treeRight, mid + 1, queryR);
+        System.out.println("merge:" + merger.merge(left, right));
         return merger.merge(left, right);
     }
 
@@ -162,19 +165,19 @@ public class ArraySegmentTree<T> {
     }
 
     public static void main(String[] args) {
-        Integer[] numbers = new Integer[]{2, 1, 4, 3};
+        Integer[] numbers = new Integer[]{2, 6, 1, 5, 8, 3, 4, 1, 2, 5};
         ArraySegmentTree<Integer> segmentTree = new ArraySegmentTree<>(numbers,
                 (a, b) -> a + b);
         System.out.println(segmentTree.toString());
 
-        System.out.println(segmentTree.query(1, 3));
+        System.out.println(segmentTree.query(3, 5));
 
-        System.out.println("index为1的值改成3");
-        segmentTree.update(1, 3);
+//        System.out.println("index为1的值改成3");
+//        segmentTree.update(1, 3);
 
         System.out.println(segmentTree.toString());
 
-        System.out.println(segmentTree.query(1, 3));
+        //System.out.println(segmentTree.query(1, 3));
 
 
     }
