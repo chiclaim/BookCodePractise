@@ -1,8 +1,5 @@
 package com.chiclaim.data.structure.tree;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 /**
  * 线段树
  *
@@ -51,7 +48,7 @@ public class ArraySegmentTree<T> {
         int leftTreeIndex = getLeft(treeIndex);
         //当前节点右子树索引
         int rightTreeIndex = getRight(treeIndex);
-        //int mid = (left+right)/2;
+        //int mid = (left+right)/2; 如果left和right很大，可能会导致整型溢出
         int mid = treeLeft + (treeRight - treeLeft) / 2;
         //构建左子树
         buildSegmentTree(leftTreeIndex, treeLeft, mid);
