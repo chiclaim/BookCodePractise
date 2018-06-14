@@ -39,6 +39,11 @@ public class Trie {
         return size == 0;
     }
 
+    /**
+     * 插入操作
+     *
+     * @param word 单词
+     */
     public void add(String word) {
         Node current = root;
         char[] cs = word.toCharArray();
@@ -57,6 +62,12 @@ public class Trie {
     }
 
 
+    /**
+     * 是否包含某个单词
+     *
+     * @param word 单词
+     * @return 存在返回true，反之false
+     */
     public boolean contains(String word) {
         Node current = root;
         for (int i = 0; i < word.length(); i++) {
@@ -96,6 +107,13 @@ public class Trie {
      * 1，如果单词是另一个单词的前缀，只需要把该word的最后一个节点的isWord的改成false
      * 2，如果单词的所有字母的都没有多个分支，删除整个单词
      * 3，如果单词的除了最后一个字母，其他的字母有多个分支，
+     */
+
+    /**
+     * 删除操作
+     *
+     * @param word
+     * @return
      */
     public boolean remove(String word) {
         Node multiChildNode = null;
@@ -140,7 +158,7 @@ public class Trie {
     }
 
     /**
-     * 通过..作为通配符
+     * 查询操作(通过..作为通配符)
      *
      * @param express 如 p..d
      * @return
