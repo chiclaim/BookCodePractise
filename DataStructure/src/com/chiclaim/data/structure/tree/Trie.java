@@ -92,39 +92,51 @@ public class Trie {
     }
 
 
-    public void remove(String word) {
+    /*
+     * 1，如果单词是另一个单词的前缀，只需要把该word的最后一个节点的isWord的改成false
+     * 2，如果单词的所有字母的都没有多个分支，删除整个单词
+     * 3，如果单词的除了最后一个字母，其他的字母有多个分支，
+     */
+    public boolean remove(String word) {
+        Node multiChildNode = null;
+        int multiChildNodeIndex = -1;
         Node current = root;
         for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
-            Node node = current.next.get(c);
-            if (node == null) {
-                return;
+            Node child = current.next.get(word.charAt(i));
+            //如果Trie中没有这个单词
+            if (child == null) {
+                return false;
             }
-            current = node;
+            //当前节点的子节点大于1个
+            if (child.next.size() > 1) {
+                multiChildNodeIndex = i;
+                multiChildNode = child;
+            }
+            current = child;
         }
-
-        if (current.next.size() != 0) {
+        //如果单词后面还有子节点
+        if (current.next.size() > 0) {
             if (current.isWord) {
                 current.isWord = false;
+                size--;
+                return true;
             }
-        } else {
-            // TODO: 2018/6/13 Trie删除
-//            Map<Character,Node> childern = root.next;
-//            Node child = null;
-//            for(int i=word.length();i>=1 ;i--){
-//                String subWord = word.substring(0,i);
-//                Node parent  = searchNode(subWord);
-//                if(child!=null
-//                        && parent.next.size() !=1
-//                        && child.next.size()==1){
-//                    parent.next.remove(child.c);
-//                    System.out.println("删除成功:"+word);
-//                    return;
-//                }else{
-//                    child = parent;
-//                }
-//            }
+            //不存在该单词，该单词只是前缀
+            return false;
         }
+        //如果单词的所有字母的都没有多个分支，删除整个单词
+        if (multiChildNodeIndex == -1) {
+            root.next.remove(word.charAt(0));
+            size--;
+            return true;
+        }
+        //如果单词的除了最后一个字母，其他的字母有分支
+        if (multiChildNodeIndex != word.length() - 1) {
+            multiChildNode.next.remove(word.charAt(multiChildNodeIndex + 1));
+            size--;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -161,6 +173,24 @@ public class Trie {
     }
 
 
+    private static void testDelete() {
+        Trie trie = new Trie();
+        trie.add("pain");
+        trie.add("paint");
+        trie.add("painted");
+        trie.add("painting");
+
+        System.out.println("pain、paint、painted、painting");
+        System.out.println("remove(p):" + trie.remove("p"));
+        System.out.println("remove(pa):" + trie.remove("pa"));
+        System.out.println("remove(pain):" + trie.remove("pain"));
+        System.out.println("remove(paint):" + trie.remove("paint"));
+        System.out.println("remove(painted):" + trie.remove("painted"));
+        System.out.println("remove(painting):" + trie.remove("painting"));
+        System.out.println("trie size:" + trie.size);
+    }
+
+
     public static void main(String[] args) {
         Trie trie = new Trie();
         trie.add("panda");
@@ -173,6 +203,9 @@ public class Trie {
         trie.remove("panda");
         System.out.println("contains(panda) = " + trie.contains("panda"));
 
+        System.out.println("---------------------------");
+
+        testDelete();
     }
 
 
