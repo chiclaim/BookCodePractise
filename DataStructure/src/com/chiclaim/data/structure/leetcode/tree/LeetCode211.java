@@ -5,22 +5,23 @@ import java.util.TreeMap;
 
 public class LeetCode211 {
 
-    private static class Node {
-        public boolean isWord;
-        public Map<Character, Node> next;
-
-        public Node() {
-            next = new TreeMap<>();
-        }
-
-        public Node(boolean isWord) {
-            this();
-            this.isWord = isWord;
-        }
-
-    }
 
     class WordDictionary {
+
+        class Node {
+            boolean isWord;
+            Map<Character, Node> next;
+
+            public Node() {
+                next = new TreeMap<>();
+            }
+
+            public Node(boolean isWord) {
+                this();
+                this.isWord = isWord;
+            }
+
+        }
 
         private Node root;
 
