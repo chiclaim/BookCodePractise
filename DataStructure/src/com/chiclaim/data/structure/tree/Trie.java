@@ -199,11 +199,11 @@ public class Trie {
         trie.add("painting");
 
         System.out.println("pain、paint、painted、painting");
-        System.out.println("remove(p):" + trie.remove("p"));
-        System.out.println("remove(pa):" + trie.remove("pa"));
-        System.out.println("remove(pain):" + trie.remove("pain"));
-        System.out.println("remove(paint):" + trie.remove("paint"));
-        System.out.println("remove(painted):" + trie.remove("painted"));
+//        System.out.println("remove(p):" + trie.remove("p"));
+//        System.out.println("remove(pa):" + trie.remove("pa"));
+//        System.out.println("remove(pain):" + trie.remove("pain"));
+//        System.out.println("remove(paint):" + trie.remove("paint"));
+//        System.out.println("remove(painted):" + trie.remove("painted"));
         System.out.println("remove(painting):" + trie.remove("painting"));
         System.out.println("trie size:" + trie.size);
     }

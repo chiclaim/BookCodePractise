@@ -29,16 +29,16 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String filename = "pride-and-prejudice.txt";
+        String filename = "both-of-all.txt";//"pride-and-prejudice.txt";
         double bstTime = countTime(new BSTSet<>(), filename);
+        System.out.println();
 
+        double trieTime = countTime(new TrieSet(), filename);
         System.out.println();
 
         double linkedListTime = countTime(new LinkedListSet<>(), filename);
 
-        System.out.println();
 
-        double trieTime = countTime(new TrieSet(), filename);
 
         System.out.println();
 
