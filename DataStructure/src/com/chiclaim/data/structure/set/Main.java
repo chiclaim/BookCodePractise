@@ -38,6 +38,11 @@ public class Main {
 
         System.out.println();
 
+        double trieTime = countTime(new TrieSet(), filename);
+
+        System.out.println();
+
+        System.out.println("TrieSet       Time: " + trieTime);
         System.out.println("BSTSet        Time: " + bstTime);
         System.out.println("LinkedListSet Time: " + linkedListTime);
 
