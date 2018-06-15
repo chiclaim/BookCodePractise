@@ -17,8 +17,12 @@ public class Main {
         if (FileOperation.readFile(filename, words1)) {
             System.out.println("\tTotal words: " + words1.size());
 
-            for (String word : words1)
+            for (String word : words1) {
                 set.add(word);
+            }
+            for (String word : words1) {
+                set.contains(word);
+            }
             System.out.println("\tTotal different words: " + set.size());
         }
 
@@ -29,7 +33,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String filename = "both-of-all.txt";//"pride-and-prejudice.txt";
+        //String filename = "both-of-all.txt";
+        //String filename = "pride-and-prejudice.txt";
+        String filename = "a-tale-of-two-cities.txt";
         double bstTime = countTime(new BSTSet<>(), filename);
         System.out.println();
 
@@ -37,7 +43,6 @@ public class Main {
         System.out.println();
 
         double linkedListTime = countTime(new LinkedListSet<>(), filename);
-
 
 
         System.out.println();
