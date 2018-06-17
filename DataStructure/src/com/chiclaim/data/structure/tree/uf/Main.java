@@ -26,13 +26,13 @@ public class Main {
     public static void main(String[] args) {
         int size = 10000000;
         int p = 10000000; //操作次数
-        //double countTime1 = test(new UnionFind1(size), p);
-        //double countTime2 = test(new UnionFind2(size), p);
+//        double countTime1 = test(new UnionFind1(size), p);
+//        double countTime2 = test(new UnionFind2(size), p);
         double countTime3 = test(new UnionFind3(size), p);
         double countTime4 = test(new UnionFind4(size), p);
         double countTime5 = test(new UnionFind5(size), p);
-        //System.out.println("UnionFind1 = " + countTime1);
-        //System.out.println("UnionFind2 = " + countTime2);
+//        System.out.println("UnionFind1 = " + countTime1);
+//        System.out.println("UnionFind2 = " + countTime2);
         System.out.println("UnionFind3 = " + countTime3);
         System.out.println("UnionFind4 = " + countTime4);
         System.out.println("UnionFind5 = " + countTime5);

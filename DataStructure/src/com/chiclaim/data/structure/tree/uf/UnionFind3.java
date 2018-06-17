@@ -8,14 +8,14 @@ package com.chiclaim.data.structure.tree.uf;
 public class UnionFind3 implements UF {
 
     private int[] parents;
-    private int[] sz;//记录每个根节点的元素个数
+    private int[] sz;//记录每棵树的节点个数
 
     public UnionFind3(int size) {
         parents = new int[size];
         sz = new int[size];
         for (int i = 0; i < parents.length; i++) {
             parents[i] = i;
-            sz[i] = 1;//每个根节点的一开始都只有一个元素
+            sz[i] = 1;//每个根节点的一开始都只有一个节点
         }
     }
 

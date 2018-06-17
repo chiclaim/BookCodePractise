@@ -37,7 +37,8 @@ public class UnionFind1 implements UF {
     public void unionElements(int p, int q) {
         int pID = find(p);
         int qID = find(q);
-        if (qID == pID) {//如果本身就是相连的
+        //如果本身就是相连的
+        if (qID == pID) {
             return;
         }
         for (int i = 0; i < array.length; i++) {

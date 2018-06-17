@@ -38,6 +38,11 @@ public class UnionFind2 implements UF {
         return p;
     }
 
+    /**
+     * 合并操作
+     * @param p
+     * @param q
+     */
     public void unionElements(int p, int q) {
         int pRoot = find(p);
         int qRoot = find(q);

@@ -55,7 +55,7 @@ public class UnionFind4 implements UF {
             parents[pRoot] = qRoot;
         } else if (rank[pRoot] > rank[qRoot]) {
             parents[qRoot] = pRoot;
-        } else {
+        } else {//只有rank相等的情况才需要维护rank
             parents[pRoot] = qRoot;
             rank[qRoot] += 1;
         }
