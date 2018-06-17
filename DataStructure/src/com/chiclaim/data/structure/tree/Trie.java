@@ -1,7 +1,7 @@
 package com.chiclaim.data.structure.tree;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Trie字典树
@@ -17,7 +17,7 @@ public class Trie {
         public Map<Character, Node> next;
 
         public Node() {
-            next = new TreeMap<>();
+            next = new HashMap<>();
         }
 
         public Node(boolean isWord) {

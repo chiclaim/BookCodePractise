@@ -36,9 +36,9 @@ public class Main {
 
     public static void main(String[] args) {
 //        String filename = "both-of-all.txt";
-        String filename = "war-and-peace.txt";
+//        String filename = "war-and-peace.txt";
 //        String filename = "pride-and-prejudice.txt";
-//        String filename = "a-tale-of-two-cities.txt";
+        String filename = "a-tale-of-two-cities.txt";
         double bstTime = countTime(new BSTSet<>(), filename);
         System.out.println();
 
