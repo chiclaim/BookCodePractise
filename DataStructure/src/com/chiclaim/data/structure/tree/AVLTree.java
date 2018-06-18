@@ -55,14 +55,61 @@ public class AVLTree<K extends Comparable<K>, V> {
         node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
 
         //获取节点的平衡因子
-        int balanceFactor = Math.abs(getBalanceFactor(node));
-        if (balanceFactor > 1) {
-            System.out.println("balanceFactor = " + (balanceFactor));
-            if (balanceFactor > maxBalanceFactor)
-                maxBalanceFactor = balanceFactor;
+        int balanceFactor = getBalanceFactor(node);
+
+        // 右旋转
+        // 左子树比右子树要高超过了1，说明当前节点的平衡被打破
+        // 且新添加的节点是在左子树的左子树的左侧
+
+        //LL
+        if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0)
+            return rotateRight(node);
+
+        //RR
+        if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0)
+            return rotateLeft(node);
+
+        //LR
+        if (balanceFactor > 1 && getBalanceFactor(node.left) < 0) {
+            node.left = rotateLeft(node.left);//转化LL形式
+            return rotateRight(node);
+        }
+
+        //RL
+        if (balanceFactor < -1 && getBalanceFactor(node.right) > 0) {
+            node.right = rotateRight(node.right);//转化成RR
+            return rotateLeft(node);
         }
 
         return node;
+    }
+
+    private Node<K, V> rotateRight(Node<K, V> node) {
+        Node<K, V> nodeLeft = node.left;
+        Node<K, V> lRight = nodeLeft.right;
+        //右旋转
+        nodeLeft.right = node;
+        node.left = lRight;
+
+        //维护节点高度
+        node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
+        nodeLeft.height = 1 + Math.max(getHeight(nodeLeft.left), getHeight(nodeLeft.right));
+
+        return nodeLeft;
+    }
+
+    private Node<K, V> rotateLeft(Node<K, V> node) {
+        Node<K, V> nodeRight = node.right;
+        Node<K, V> rLeft = nodeRight.left;
+        //左旋转
+        nodeRight.left = node;
+        node.right = rLeft;
+
+        //维护节点高度
+        node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
+        nodeRight.height = 1 + Math.max(getHeight(nodeRight.left), getHeight(nodeRight.right));
+
+        return nodeRight;
     }
 
     private int maxBalanceFactor;
@@ -222,27 +269,85 @@ public class AVLTree<K extends Comparable<K>, V> {
         return successor;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Pride and Prejudice");
+    /**
+     * 是否是二分搜索树
+     *
+     * @return
+     */
+    public boolean isBST() {
+        List<K> list = new ArrayList<>();
+        inorder(root, list);
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i - 1).compareTo(list.get(i)) > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    public boolean isBalance() {
+        return isBalance(root);
+    }
+
+    private boolean isBalance(Node<K, V> node) {
+        if (node == null)
+            return true;
+        //当前的节点的平衡因子
+        if (Math.abs(getBalanceFactor(node)) > 1)
+            return false;
+        //判断节点的左右子树
+        return isBalance(node.left) && isBalance(node.right);
+    }
+
+    private void inorder(Node<K, V> node, List<K> keys) {
+        if (node == null)
+            return;
+        inorder(node.left, keys);
+        keys.add(node.key);
+        inorder(node.right, keys);
+    }
+
+
+    private static void bstVsAVL() {
         ArrayList<String> words = new ArrayList<>();
         if (FileOperation.readFile("pride-and-prejudice.txt", words)) {
-            System.out.println("Total words: " + words.size());
-
-            AVLTree<String, Integer> map = new AVLTree<>();
+            long startTime = System.nanoTime();
+            AVLTree<String, Integer> avl = new AVLTree<>();
             for (String word : words) {
-                if (map.contains(word))
-                    map.add(word, map.get(word) + 1);
+                if (avl.contains(word))
+                    avl.add(word, avl.get(word) + 1);
                 else
-                    map.add(word, 1 );
+                    avl.add(word, 1);
             }
 
-            System.out.println("maxBalanceFactor: " + map.maxBalanceFactor);
-            System.out.println("Total different words: " + map.size());
-            System.out.println("Frequency of PRIDE: " + map.get("pride"));
-            System.out.println("Frequency of PREJUDICE: " + map.get("prejudice"));
+            for (String word : words) {
+                avl.contains(word);
+            }
+            long endTime = System.nanoTime();
+            System.out.println("AVL: " + (endTime - startTime) / 1000000000.0);
+
+
+            startTime = System.nanoTime();
+            BSTMap<String, Integer> bstMap = new BSTMap<>();
+            for (String word : words) {
+                if (bstMap.contains(word))
+                    bstMap.add(word, bstMap.get(word) + 1);
+                else
+                    bstMap.add(word, 1);
+            }
+
+            for (String word : words) {
+                bstMap.contains(word);
+            }
+            endTime = System.nanoTime();
+            System.out.println("BST: " + (endTime - startTime) / 1000000000.0);
         }
 
-        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Pride and Prejudice");
+        bstVsAVL();
+
     }
 }
