@@ -1,6 +1,7 @@
-package com.chiclaim.data.structure.tree;
+package com.chiclaim.data.structure.tree.heap;
 
 import com.chiclaim.data.structure.linear.Queue;
+import com.chiclaim.data.structure.tree.heap.MaxHeap;
 
 /**
  * 基于大顶堆的优先队列

@@ -1,7 +1,5 @@
 package com.chiclaim.data.structure.leetcode.tree;
 
-import com.chiclaim.data.structure.tree.Trie;
-
 import java.util.Map;
 import java.util.TreeMap;
 

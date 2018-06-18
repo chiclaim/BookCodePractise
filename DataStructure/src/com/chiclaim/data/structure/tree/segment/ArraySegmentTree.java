@@ -1,4 +1,4 @@
-package com.chiclaim.data.structure.tree;
+package com.chiclaim.data.structure.tree.segment;
 
 /**
  * 线段树

@@ -1,27 +1,27 @@
-package com.chiclaim.data.structure.tree;
+package com.chiclaim.data.structure.tree.heap;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
 /**
- * 小顶堆
+ * 大顶堆
  */
-public class MinHeap<T extends Comparable<T>> {
+public class MaxHeap<T extends Comparable<T>> {
 
     private T[] data;
     private int size;
 
-    public MinHeap() {
+    public MaxHeap() {
         this(16);
     }
 
-    public MinHeap(int capacity) {
+    public MaxHeap(int capacity) {
         data = (T[]) new Comparable[capacity];
     }
 
     //Heapify
-    public MinHeap(T[] arr) {
+    public MaxHeap(T[] arr) {
         data = arr;
         size = arr.length;
         //对所有非叶子节点进行siftDown操作，从倒数第一个非叶子节点开始
@@ -78,21 +78,21 @@ public class MinHeap<T extends Comparable<T>> {
 
     private void siftUp(int index) {
         int parentIndex;
-        //如果当前的节点比父节点要小
-        while (index > 0 && data[index].compareTo(data[parentIndex = getParent(index)]) < 0) {
+        //如果当前的节点比父节点要大
+        while (index > 0 && data[index].compareTo(data[parentIndex = getParent(index)]) > 0) {
             swap(index, parentIndex);
             index = parentIndex;
         }
     }
 
     /**
-     * 移除堆顶元素
+     * 移除堆中最大元素
      */
-    public T removeTop() {
+    public T removeMax() {
         if (size == 0)
             throw new NoSuchElementException();
 
-        T delete = getTop();
+        T delete = getMax();
         swap(0, size - 1);
         data[--size] = null;
 
@@ -104,59 +104,58 @@ public class MinHeap<T extends Comparable<T>> {
     private void siftDown(int index) {
         int left;
         while ((left = getLeft(index)) < size) {
-            int min = left;
-            //有右节点并且右节点小于左节点
-            if (left + 1 < size && data[left + 1].compareTo(data[left]) < 0) {
-                min = left + 1;
+            int max = left;
+            if (left + 1 < size && data[left + 1].compareTo(data[left]) > 0) {
+                max = left + 1;
             }
-            if (data[min].compareTo(data[index]) >= 0) {
+            if (data[max].compareTo(data[index]) <= 0) {
                 break;
             }
-            swap(index, min);
-            index = min;
+            swap(index, max);
+            index = max;
         }
     }
 
     /**
-     * 删除堆顶元素，插入新元素
+     * 删除最大值，插入新元素
      *
      * @param element max
      * @return
      */
     public T replace(T element) {
-        T max = getTop();
+        T max = getMax();
         data[0] = element;
         siftDown(0);
         return max;
     }
 
-    public T getTop(){
+    public T getMax(){
         if(size==0)
             throw new NoSuchElementException();
         return data[0];
     }
 
-    private static void testHeap() {
-        MinHeap<Integer> heap = new MinHeap<>();
+
+    private static void testMaxHeap() {
+        MaxHeap<Integer> heap = new MaxHeap<>();
         int count = 100;
         Random random = new Random();
         for (int i = 0; i < count; i++) {
             heap.add(random.nextInt(1000));
         }
-        int[] values = checkMinHeap(heap);
+        int[] values = checkMaxHeap(heap);
         System.out.println(Arrays.toString(values));
     }
 
-
-    private static int[] checkMinHeap(MinHeap<Integer> heap) {
+    private static int[] checkMaxHeap(MaxHeap<Integer> heap) {
         int[] values = new int[heap.size];
         for (int i = 0; i < values.length; i++) {
-            values[i] = heap.removeTop();
+            values[i] = heap.removeMax();
         }
 
         //check
         for (int i = 1; i < values.length; i++) {
-            if (values[i - 1] > values[i])
+            if (values[i - 1] < values[i])
                 throw new IllegalStateException();
         }
 
@@ -187,7 +186,7 @@ public class MinHeap<T extends Comparable<T>> {
         }
 
         long start = System.nanoTime();
-        MinHeap<Integer> heap = new MinHeap<>();
+        MaxHeap<Integer> heap = new MaxHeap<>();
         for (int i = 0; i < data.length; i++) {
             heap.add(i);
         }
@@ -196,19 +195,19 @@ public class MinHeap<T extends Comparable<T>> {
 
         //heapify
         long start2 = System.nanoTime();
-        MinHeap<Integer> heap2 = new MinHeap(data);
+        MaxHeap<Integer> heap2 = new MaxHeap(data);
         long end2 = System.nanoTime();
         System.out.println("with    heapify: " + (end2 - start2) / 100000000.0 + " sec");
 
 
-        checkMinHeap(heap);
-        checkMinHeap(heap2);
+        checkMaxHeap(heap);
+        checkMaxHeap(heap2);
 
     }
 
 
     public static void main(String[] args) {
-        testHeap();
+        testMaxHeap();
         heapifyVsNoHeapify();
     }
 

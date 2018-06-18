@@ -1,4 +1,4 @@
-package com.chiclaim.data.structure.tree;
+package com.chiclaim.data.structure.tree.trie;
 
 import java.util.HashMap;
 import java.util.Map;
