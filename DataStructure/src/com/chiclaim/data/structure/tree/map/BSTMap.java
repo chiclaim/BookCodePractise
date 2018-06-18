@@ -1,4 +1,4 @@
-package com.chiclaim.data.structure.tree;
+package com.chiclaim.data.structure.tree.map;
 
 import com.chiclaim.data.structure.set.FileOperation;
 
