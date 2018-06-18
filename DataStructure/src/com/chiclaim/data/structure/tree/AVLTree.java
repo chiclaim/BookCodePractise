@@ -84,6 +84,7 @@ public class AVLTree<K extends Comparable<K>, V> {
         return node;
     }
 
+
     private Node<K, V> rotateRight(Node<K, V> node) {
         Node<K, V> nodeLeft = node.left;
         Node<K, V> lRight = nodeLeft.right;
@@ -180,44 +181,6 @@ public class AVLTree<K extends Comparable<K>, V> {
         return getMin(node.left);
     }
 
-    public Node removeMin() {
-        Node delete = getMin();
-        //因为可能只有一个节点，所以需要root接收removeMin的返回值null
-        root = removeMin(root);
-        return delete;
-    }
-
-    private Node<K, V> removeMin(Node<K, V> node) {
-        if (node.left == null) {
-            Node<K, V> rightNode = node.right;
-            node.right = null;
-            size--;
-            return rightNode;
-        }
-        //把要删除节点的右节点赋值给 父节点的左节点
-        node.left = removeMin(node.left);
-        return node;
-
-    }
-
-    public Node<K, V> removeMax() {
-        Node<K, V> delete = getMax();
-        //因为可能只有一个节点，所以需要root接收removeMin的返回值null
-        root = removeMax(root);
-        return delete;
-    }
-
-    public Node<K, V> removeMax(Node<K, V> node) {
-        if (node.right == null) {
-            Node<K, V> leftNode = node.left;
-            size--;
-            node.left = null;
-            return leftNode;
-        }
-        node.right = removeMax(node.right);
-        return node;
-    }
-
     /**
      * 删除任意节点
      */
@@ -230,43 +193,88 @@ public class AVLTree<K extends Comparable<K>, V> {
             return null;
         }
 
+        Node<K, V> retNode = null;
+
         //如果要删除的节点小于当前节点，继续查询其左子树
         if (key.compareTo(node.key) < 0) {
             node.left = remove(node.left, key);
-            return node;
+            retNode = node;
         }
         //如果要删除的节点大于当前节点，继续查询其右子树
-        if (key.compareTo(node.key) > 0) {
+        else if (key.compareTo(node.key) > 0) {
             node.right = remove(node.right, key);
-            return node;
+            retNode = node;
         }
 
-        //=======要删除的节点就是当前的节点
+        //要删除的节点就是当前的节点
+        else {
+            //如果要删除节点的左子树为空
+            if (node.left == null) {
+                Node<K, V> rightNode = node.right;
+                node.right = null;
+                size--;
+                retNode = rightNode;
+            }
 
-        //如果要删除节点的左子树为空
-        if (node.left == null) {
-            Node<K, V> rightNode = node.right;
-            node.right = null;
-            size--;
-            return rightNode;
+            //如果要删除节点的右子树为空
+            else if (node.right == null) {
+                Node<K, V> leftNode = node.left;
+                node.left = null;
+                size--;
+                retNode = leftNode;
+            }
+            //=======如果要删除的节点左右子树都不为空
+            else {
+                //找到要删除节点的后继，也就是右子树的最小值
+                Node<K, V> successor = getMin(node.right);
+                successor.right = remove(node.right, successor.key);
+                successor.left = node.left;
+                node.left = node.right = null;
+
+                retNode = successor;
+            }
         }
 
-        //如果要删除节点的右子树为空
-        if (node.right == null) {
-            Node<K, V> leftNode = node.left;
-            node.left = null;
-            size--;
-            return leftNode;
+        //如果删除的节点是叶子节点
+        if (retNode == null) {
+            return null;
         }
 
-        //=======如果要删除的节点左右子树都不为空
 
-        //找到要删除节点的后继，也就是右子树的最小值
-        Node<K, V> successor = getMin(node.right);
-        successor.right = removeMin(node.right);
-        successor.left = node.left;
-        node.left = node.right = null;
-        return successor;
+        //得到retNode之后，维护平衡性
+
+        //维护node的高度
+        //左右子树最高的高度+1
+        retNode.height = 1 + Math.max(getHeight(retNode.left), getHeight(retNode.right));
+
+        //获取节点的平衡因子
+        int balanceFactor = getBalanceFactor(retNode);
+
+        // 右旋转
+        // 左子树比右子树要高超过了1，说明当前节点的平衡被打破
+        // 且新添加的节点是在左子树的左子树的左侧
+
+        //LL
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) >= 0)
+            return rotateRight(retNode);
+
+        //RR
+        if (balanceFactor < -1 && getBalanceFactor(retNode.right) <= 0)
+            return rotateLeft(retNode);
+
+        //LR
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) < 0) {
+            retNode.left = rotateLeft(retNode.left);//转化LL形式
+            return rotateRight(retNode);
+        }
+
+        //RL
+        if (balanceFactor < -1 && getBalanceFactor(retNode.right) > 0) {
+            retNode.right = rotateRight(retNode.right);//转化成RR
+            return rotateLeft(retNode);
+        }
+
+        return retNode;
     }
 
     /**
@@ -311,6 +319,10 @@ public class AVLTree<K extends Comparable<K>, V> {
     private static void bstVsAVL() {
         ArrayList<String> words = new ArrayList<>();
         if (FileOperation.readFile("pride-and-prejudice.txt", words)) {
+
+            //just for test linked
+            //Collections.sort(words);
+
             long startTime = System.nanoTime();
             AVLTree<String, Integer> avl = new AVLTree<>();
             for (String word : words) {
@@ -345,9 +357,60 @@ public class AVLTree<K extends Comparable<K>, V> {
 
     }
 
+    private static void testBalance() {
+        ArrayList<String> words = new ArrayList<>();
+        if (FileOperation.readFile("pride-and-prejudice.txt", words)) {
+            long startTime = System.nanoTime();
+            AVLTree<String, Integer> avl = new AVLTree<>();
+            for (String word : words) {
+                if (avl.contains(word))
+                    avl.add(word, avl.get(word) + 1);
+                else
+                    avl.add(word, 1);
+            }
+
+            System.out.println("isBalance:" + avl.isBalance());
+            System.out.println("isBST:" + avl.isBST());
+            System.out.println("Total different words: " + avl.size());
+            System.out.println("Frequency of PRIDE: " + avl.get("pride"));
+            System.out.println("Frequency of PREJUDICE: " + avl.get("prejudice"));
+
+        }
+
+    }
+
+    private static void testRemove() {
+        ArrayList<String> words = new ArrayList<>();
+        if (FileOperation.readFile("pride-and-prejudice.txt", words)) {
+            long startTime = System.nanoTime();
+            AVLTree<String, Integer> avl = new AVLTree<>();
+            for (String word : words) {
+                if (avl.contains(word))
+                    avl.add(word, avl.get(word) + 1);
+                else
+                    avl.add(word, 1);
+            }
+
+            System.out.println("Total different words: " + avl.size());
+            System.out.println("Frequency of PRIDE: " + avl.get("pride"));
+            System.out.println("Frequency of PREJUDICE: " + avl.get("prejudice"));
+
+            for (String word : words) {
+                avl.remove(word);
+                if (!avl.isBST() || !avl.isBalance()) {
+                    throw new IllegalStateException("broke balance");
+                }
+            }
+            System.out.println("Test remove success! ");
+
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Pride and Prejudice");
-        bstVsAVL();
+        //bstVsAVL();
+        //testBalance();
+        testRemove();
 
     }
 }
