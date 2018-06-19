@@ -113,8 +113,7 @@ public class AVLTree<K extends Comparable<K>, V> {
 
         return nodeRight;
     }
-
-    private int maxBalanceFactor;
+    
 
     private int getHeight(Node node) {
         if (node == null)
@@ -336,8 +335,17 @@ public class AVLTree<K extends Comparable<K>, V> {
             for (String word : words) {
                 avl.contains(word);
             }
+
+            System.out.println("Total different words: " + avl.size());
+            System.out.println("Frequency of PRIDE: " + avl.get("pride"));
+            System.out.println("Frequency of PREJUDICE: " + avl.get("prejudice"));
+            System.out.println("isBalance: " + avl.isBalance());
+            System.out.println("isBST: " + avl.isBST());
+
             long endTime = System.nanoTime();
             System.out.println("AVL: " + (endTime - startTime) / 1000000000.0);
+
+            System.out.println();
 
 
             startTime = System.nanoTime();
@@ -352,8 +360,11 @@ public class AVLTree<K extends Comparable<K>, V> {
             for (String word : words) {
                 bstMap.contains(word);
             }
+            System.out.println("Total different words: " + avl.size());
+            System.out.println("Frequency of PRIDE: " + avl.get("pride"));
+            System.out.println("Frequency of PREJUDICE: " + avl.get("prejudice"));
             endTime = System.nanoTime();
-            System.out.println("BST: " + (endTime - startTime) / 1000000000.0);
+            System.out.println("BSTMap: " + (endTime - startTime) / 1000000000.0);
         }
 
     }
@@ -409,9 +420,9 @@ public class AVLTree<K extends Comparable<K>, V> {
 
     public static void main(String[] args) {
         System.out.println("Pride and Prejudice");
-        //bstVsAVL();
-        //testBalance();
-        testRemove();
+        bstVsAVL();
+//        testBalance();
+//        testRemove();
 
     }
 }
