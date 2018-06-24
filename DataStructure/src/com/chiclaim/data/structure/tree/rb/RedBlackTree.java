@@ -1,4 +1,4 @@
-package com.chiclaim.data.structure.tree;
+package com.chiclaim.data.structure.tree.rb;
 
 /**
  * 红黑树

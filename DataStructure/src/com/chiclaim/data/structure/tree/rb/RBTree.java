@@ -1,9 +1,8 @@
-package com.chiclaim.data.structure.tree;
+package com.chiclaim.data.structure.tree.rb;
 
 
 import com.chiclaim.data.structure.set.FileOperation;
 import com.chiclaim.data.structure.tree.map.BSTMap;
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.*;
 
