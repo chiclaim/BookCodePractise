@@ -49,7 +49,7 @@ public class Main {
             endTime = System.nanoTime();
             System.out.println("BST  Map: " + (endTime - startTime) / 1000000000.0);
 
-
+//红黑树的查询并不比AVL效率高，红黑树的效率在于插入和删除。总和插入、删除和查询总体比AVL高一些
 //            Total words: 125901
 //            RB  Tree: 0.171678822
 //            AVL Tree: 0.160687733
