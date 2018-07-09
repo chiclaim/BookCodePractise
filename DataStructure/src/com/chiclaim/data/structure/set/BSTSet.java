@@ -23,8 +23,9 @@ public class BSTSet<T extends Comparable<T>> implements Set<T> {
     }
 
     @Override
-    public void remove(T e) {
+    public boolean remove(T e) {
         bst.remove(e);
+        return true;//todo
     }
 
     @Override
