@@ -1,6 +1,6 @@
 package com.chiclaim.data.structure.set;
 
-import com.chiclaim.data.structure.tree.Trie;
+import com.chiclaim.data.structure.tree.trie.Trie;
 
 public class TrieSet implements Set<String> {
 

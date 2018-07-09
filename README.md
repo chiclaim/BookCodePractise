@@ -8,11 +8,11 @@
    * [队列](https://blog.csdn.net/johnny901114/article/details/80456833)、[优先队列](https://blog.csdn.net/johnny901114/article/details/80550279)
    * [二叉树](https://blog.csdn.net/johnny901114/article/details/80574803)
    * [二分搜索树](https://blog.csdn.net/johnny901114/article/details/80598727)
-   * 线段树
-   * Trie
-   * 并查集
-   * 红黑树
+   * [线段树](https://blog.csdn.net/johnny901114/article/details/80643017)
+   * [Trie](https://blog.csdn.net/johnny901114/article/details/80711441)
+   * [并查集](https://blog.csdn.net/johnny901114/article/details/80721436)
    * AVL
+   * 红黑树
    * KD树
    * 哈希表
    * 哈夫曼树
