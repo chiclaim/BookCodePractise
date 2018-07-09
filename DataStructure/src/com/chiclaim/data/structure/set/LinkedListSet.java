@@ -25,8 +25,8 @@ public class LinkedListSet<T> implements Set<T> {
     }
 
     @Override
-    public void remove(T e) {
-        linkedList.remove(e);
+    public boolean remove(T e) {
+        return linkedList.remove(e);
     }
 
     @Override

@@ -6,7 +6,7 @@ public interface Set<T> {
 
     boolean contains(T e);
 
-    void remove(T e);
+    boolean remove(T e);
 
     boolean isEmpty();
 

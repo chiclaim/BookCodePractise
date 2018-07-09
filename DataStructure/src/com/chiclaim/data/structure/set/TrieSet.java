@@ -21,8 +21,8 @@ public class TrieSet implements Set<String> {
     }
 
     @Override
-    public void remove(String e) {
-        trie.remove(e);
+    public boolean remove(String e) {
+        return trie.remove(e);
     }
 
     @Override

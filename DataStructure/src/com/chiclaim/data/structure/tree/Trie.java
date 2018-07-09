@@ -198,7 +198,7 @@ public class Trie {
         trie.add("painted");
         trie.add("painting");
 
-        System.out.println("pain、paint、painted、painting");
+        System.out.println("add word : [pain、paint、painted、painting]");
         System.out.println("remove(p):" + trie.remove("p"));
         System.out.println("remove(pa):" + trie.remove("pa"));
         System.out.println("remove(pain):" + trie.remove("pain"));
@@ -221,7 +221,7 @@ public class Trie {
         trie.remove("panda");
         System.out.println("contains(panda) = " + trie.contains("panda"));
 
-        System.out.println("---------------------------");
+        System.out.println("------------test trie delete---------------");
 
         testDelete();
     }
