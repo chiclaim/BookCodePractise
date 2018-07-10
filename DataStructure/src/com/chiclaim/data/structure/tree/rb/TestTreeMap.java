@@ -17,23 +17,41 @@ public class TestTreeMap {
     @Test
     public void test() {
         TreeMap<Integer, Integer> tree = new TreeMap<>();
-        tree.put(3, 3);
+        tree.put(14, 14);
+        tree.put(5, 5);
+        tree.put(20, 20);
         tree.put(2, 2);
-        tree.put(7, 7);
-//        tree.put(10,10);
-//        tree.put(9,9);
+        tree.put(8, 8);
+        tree.put(25, 25);
+        tree.put(24, 24);
+        /*
+        [14,5,20,2,8,25]
+            14, color:Black, left=5=5 , right=20=20
+            5, color:Black, left=2=2 , right=8=8
+            20, color:Black, left=null , right=25=25
+            2, color:RED, left=null , right=null
+            8, color:RED, left=null , right=null
+            25, color:RED, left=null , right=null
+
+        [14,5,20,2,8,25,24]
+            14, color:Black, left=5=5 , right=24=24
+            5, color:Black, left=2=2 , right=8=8
+            24, color:Black, left=20=20 , right=25=25
+            2, color:RED, left=null , right=null
+            8, color:RED, left=null , right=null
+            20, color:RED, left=null , right=null
+            25, color:RED, left=null , right=null
+
+         */
 
         Class clazz = tree.getClass();
         try {
             Field fRoot = clazz.getDeclaredField("root");
             fRoot.setAccessible(true);
             Object root = fRoot.get(tree);
-            System.out.println(root);
             System.out.println("=========层序遍历==============");
             levelorder(root);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
