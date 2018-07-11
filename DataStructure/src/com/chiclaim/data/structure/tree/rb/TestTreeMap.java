@@ -13,17 +13,48 @@ import java.util.TreeMap;
  */
 public class TestTreeMap {
 
+    @Test
+    public void test2() {
+        TreeMap<Character, Character> tree = new TreeMap<>();
+        tree.put('E', 'E');
+        tree.put('D', 'D');
+        tree.put('R', 'R');
+        tree.put('O', 'O');
+        tree.put('S', 'S');
+        tree.put('X', 'X');
+
+        /*
+        [R,E,D,S,O,X]
+            E, color:Black, left=D=D , right=R=R
+            D, color:Black, left=null , right=null
+            R, color:RED, left=O=O , right=S=S
+            O, color:Black, left=null , right=null
+            S, color:Black, left=null , right=X=X
+            X, color:RED, left=null , right=null
+         */
+
+        Class clazz = tree.getClass();
+        try {
+            Field fRoot = clazz.getDeclaredField("root");
+            fRoot.setAccessible(true);
+            Object root = fRoot.get(tree);
+            System.out.println("=========层序遍历==============");
+            levelorder(root);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
     public void test() {
         TreeMap<Integer, Integer> tree = new TreeMap<>();
-        tree.put(14, 14);
-        tree.put(5, 5);
-        tree.put(20, 20);
-        tree.put(2, 2);
-        tree.put(8, 8);
-        tree.put(25, 25);
-        tree.put(24, 24);
+        //int[] data = new int[]{14, 5, 20, 2, 8, 25, 24};
+        int[] data = new int[]{14, 5, 20,};
+        for (int d : data) {
+            tree.put(d, d);
+        }
+        tree.put(24,24);
         /*
         [14,5,20,2,8,25]
             14, color:Black, left=5=5 , right=20=20
@@ -32,6 +63,7 @@ public class TestTreeMap {
             2, color:RED, left=null , right=null
             8, color:RED, left=null , right=null
             25, color:RED, left=null , right=null
+            //5的左右都是红结点、20的右节点是红色
 
         [14,5,20,2,8,25,24]
             14, color:Black, left=5=5 , right=24=24
