@@ -4,12 +4,14 @@ package com.chiclaim.data.structure.tree.rb;
 import com.chiclaim.data.structure.set.FileOperation;
 import com.chiclaim.data.structure.tree.map.BSTMap;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
- * 红黑树
+ * 红黑树（2-3-4树）
  */
-public class RBTree<K extends Comparable<K>, V> {
+public class RB2_3_4Tree<K extends Comparable<K>, V> {
 
     private static final boolean RED = true;
     private static final boolean BLACK = false;
@@ -61,6 +63,11 @@ public class RBTree<K extends Comparable<K>, V> {
             return new Node<>(key, value);
         }
 
+        //是否需要颜色的翻转
+        if (isRed(node.left) && isRed(node.right)) {
+            flipColor(node);
+        }
+
         if (key.compareTo(node.key) < 0)
             node.left = _add(node.left, key, value);
         else if (key.compareTo(node.key) > 0)
@@ -77,12 +84,6 @@ public class RBTree<K extends Comparable<K>, V> {
         if (isRed(node.left) && isRed(node.left.left)) {
             node = rotateRight(node);
         }
-
-        //是否需要颜色的翻转
-        if (isRed(node.left) && isRed(node.right)) {
-            flipColor(node);
-        }
-
 
         return node;
     }
@@ -276,9 +277,8 @@ public class RBTree<K extends Comparable<K>, V> {
         }
     }
 
-
     public static void main(String[] args) {
-        RBTree<Character, Character> rbTree = new RBTree<>();
+        RB2_3_4Tree<Character, Character> rbTree = new RB2_3_4Tree<>();
         rbTree.add('E', 'E');
         rbTree.add('C', 'C');
         rbTree.add('G', 'G');
@@ -288,44 +288,5 @@ public class RBTree<K extends Comparable<K>, V> {
         rbTree.add('J', 'J');
         rbTree.add('A', 'A');
         rbTree.levelorder(rbTree.root);
-    }
-
-    private static void test() {
-        System.out.println("Pride and Prejudice");
-
-        ArrayList<String> words = new ArrayList<>();
-        if (FileOperation.readFile("pride-and-prejudice.txt", words)) {
-            System.out.println("Total words: " + words.size());
-
-            System.out.println("RB Tree -----");
-
-            RBTree<String, Integer> rbTree = new RBTree<>();
-            for (String word : words) {
-                if (rbTree.contains(word))
-                    rbTree.add(word, rbTree.get(word) + 1);
-                else
-                    rbTree.add(word, 1);
-            }
-
-            System.out.println("Total different words: " + rbTree.size());
-            System.out.println("Frequency of PRIDE: " + rbTree.get("pride"));
-            System.out.println("Frequency of PREJUDICE: " + rbTree.get("prejudice"));
-
-            System.out.println();
-            System.out.println("BSTMap -----");
-
-            BSTMap<String, Integer> map = new BSTMap<>();
-            for (String word : words) {
-                if (map.contains(word))
-                    map.add(word, map.get(word) + 1);
-                else
-                    map.add(word, 1);
-            }
-
-            System.out.println("Total different words: " + map.size());
-            System.out.println("Frequency of PRIDE: " + map.get("pride"));
-            System.out.println("Frequency of PREJUDICE: " + map.get("prejudice"));
-        }
-
     }
 }
