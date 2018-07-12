@@ -24,6 +24,11 @@ public class RBTree<K extends Comparable<K>, V> {
             this.key = key;
             this.value = value;
         }
+
+        @Override
+        public String toString() {
+            return key + "";
+        }
     }
 
     private Node<K, V> root;
@@ -255,7 +260,32 @@ public class RBTree<K extends Comparable<K>, V> {
         return successor;
     }
 
+    public void levelorder(Node<K, V> root) {
+        if (root == null) {
+            return;
+        }
+        ArrayDeque<Node<K, V>> deque = new ArrayDeque<>();
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            Node<K, V> node = deque.pollLast();
+            System.out.println(node.key + ",color=" + (node.color == BLACK ? "Black" : "Red") + " left=" + node.left + ", right=" + node.right);
+            if (node.left != null)
+                deque.add(node.left);
+            if (node.right != null)
+                deque.add(node.right);
+        }
+    }
+
+
     public static void main(String[] args) {
+        RBTree<Integer, Integer> rbTree = new RBTree<>();
+        rbTree.add(3, 3);
+        rbTree.add(2, 2);
+        rbTree.add(7, 7);
+        rbTree.levelorder(rbTree.root);
+    }
+
+    private static void test() {
         System.out.println("Pride and Prejudice");
 
         ArrayList<String> words = new ArrayList<>();

@@ -13,6 +13,36 @@ import java.util.TreeMap;
  */
 public class TestTreeMap {
 
+
+    @Test
+    public void test3() {
+        TreeMap<Character, Character> tree = new TreeMap<>();
+        tree.put('G', 'G');
+        tree.put('P', 'P');
+        tree.put('Y', 'Y');
+        tree.put('H', 'H');
+        tree.put('X', 'X');
+
+        /*
+         [G,P,Y,H]
+            P
+
+
+         */
+
+        Class clazz = tree.getClass();
+        try {
+            Field fRoot = clazz.getDeclaredField("root");
+            fRoot.setAccessible(true);
+            Object root = fRoot.get(tree);
+            System.out.println("=========层序遍历==============");
+            levelorder(root);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Test
     public void test2() {
         TreeMap<Character, Character> tree = new TreeMap<>();
@@ -54,7 +84,7 @@ public class TestTreeMap {
         for (int d : data) {
             tree.put(d, d);
         }
-        tree.put(24,24);
+        //tree.put(24,24);
         /*
         [14,5,20,2,8,25]
             14, color:Black, left=5=5 , right=20=20
