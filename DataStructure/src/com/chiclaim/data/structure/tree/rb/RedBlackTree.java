@@ -162,7 +162,7 @@ public class RedBlackTree<T extends Comparable> {
             //target没有子节点，把它当做虚的替换节点
             //修复红黑树
             if (target.color == BLACK) {
-                fixAfterInsertion(target);
+                fixAfterDeletion(target);
             }
 
             if (target.parent != null) {
@@ -184,6 +184,10 @@ public class RedBlackTree<T extends Comparable> {
     }
 
     private void fixAfterInsertion(Node node) {
+
+    }
+
+    private void fixAfterDeletion(Node node){
 
     }
 
