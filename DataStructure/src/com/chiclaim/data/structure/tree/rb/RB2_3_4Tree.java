@@ -278,15 +278,16 @@ public class RB2_3_4Tree<K extends Comparable<K>, V> {
     }
 
     public static void main(String[] args) {
-        RB2_3_4Tree<Character, Character> rbTree = new RB2_3_4Tree<>();
-        rbTree.add('E', 'E');
-        rbTree.add('C', 'C');
-        rbTree.add('G', 'G');
-        rbTree.add('B', 'B');
-        rbTree.add('D', 'D');
-        rbTree.add('F', 'F');
-        rbTree.add('J', 'J');
-        rbTree.add('A', 'A');
-        rbTree.levelorder(rbTree.root);
+        //char[] data = new char[]{'E','C','G','B','D','F','J','A'};
+        char[] data = new char[]{'E', 'D', 'R', 'O', 'S', 'X'};
+        test2(data);
+    }
+
+    private static void test2(char[] data) {
+        RB2_3_4Tree<Character, Character> tree = new RB2_3_4Tree<>();
+        for (char c : data) {
+            tree.add(c, c);
+        }
+        tree.levelorder(tree.root);
     }
 }
