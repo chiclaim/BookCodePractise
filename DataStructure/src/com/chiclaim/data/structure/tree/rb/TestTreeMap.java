@@ -17,11 +17,11 @@ public class TestTreeMap {
     @Test
     public void test3() {
         TreeMap<Character, Character> tree = new TreeMap<>();
-        tree.put('G', 'G');
-        tree.put('P', 'P');
-        tree.put('Y', 'Y');
-        tree.put('H', 'H');
-        tree.put('X', 'X');
+        tree.put('A', 'A');
+        tree.put('B', 'B');
+//        tree.put('Y', 'Y');
+//        tree.put('H', 'H');
+//        tree.put('X', 'X');
 
         /*
          [G,P,Y,H]
