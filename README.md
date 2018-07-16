@@ -26,11 +26,11 @@
    * [Stack](https://blog.csdn.net/johnny901114/article/details/80373290)
    * [ArrayDeque](https://blog.csdn.net/johnny901114/article/details/80456833)
    * [PriorityQueue](https://blog.csdn.net/johnny901114/article/details/80550279)
+   * [TreeMap](https://blog.csdn.net/johnny901114/article/details/81046088)
+   * [TreeSet](https://blog.csdn.net/johnny901114/article/details/81046088)
    * HashMap
-   * TreeMap
    * LinkedHashMap
    * HashSet
-   * TreeSet
    * LinkedHashSet
 
 
