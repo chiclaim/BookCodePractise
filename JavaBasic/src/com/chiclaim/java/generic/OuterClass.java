@@ -4,7 +4,7 @@ package com.chiclaim.java.generic;
  * 主要用于从byteCode的角度分析非静态对外部类的引用情况
  * Created by Chiclaim on 2018/7/18.
  */
-public class InnerClass {
+public class OuterClass {
 
     private Runnable runnable = new Runnable() {
 
@@ -14,9 +14,9 @@ public class InnerClass {
         }
     };
 
-    class NonStaticClass {
+    class NonStaticInnerClass {
 
-        public NonStaticClass(String nonStaticClass) {
+        public NonStaticInnerClass(String nonStaticClass) {
             System.out.println("---");
         }
 
@@ -26,9 +26,9 @@ public class InnerClass {
     }
 
 
-    private static class StaticClass {
+    private static class StaticInnerClass {
 
-        public StaticClass(String staticClass) {
+        public StaticInnerClass(String staticClass) {
 
         }
 
