@@ -16,7 +16,7 @@ public class OuterClass {
 
     class NonStaticInnerClass {
 
-        public NonStaticInnerClass(String nonStaticClass) {
+        public NonStaticInnerClass() {
             System.out.println("---");
         }
 
@@ -26,9 +26,9 @@ public class OuterClass {
     }
 
 
-    private static class StaticInnerClass {
+    public static class StaticInnerClass {
 
-        public StaticInnerClass(String staticClass) {
+        public StaticInnerClass() {
 
         }
 

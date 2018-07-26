@@ -63,9 +63,9 @@ public class ClassNameTest {
 
         小结：
             getName 和 getCanonicalName 在一般情况下是一样的，如果是内部类、匿名内部类、数组的情况下就会有差别，如上输出所示。
-            1）getName 的值 和 动态加载类的时候输入的参数值一样，例如 Class.forName(...)
-            2）getCanonicalName 和 import package 值一样，如果是匿名内部类则是 null，getCanonicalName 的值和 反编译后的 class bytecode 类似
-            3）getSimpleName 就是简单的类名，不包含包名，如果是内部类不包含外部类的名字，如果是匿名内部类则是空字符串
+            1）getName 的值 和 动态加载类的时候输入的参数值一样，例如 Class.forName(...)。但是如果是匿名内部类则使用数字序列作为标识
+            2）getCanonicalName 一般情况下和 import package 值一样。但是如果是匿名内部类则是 null。getCanonicalName 的值和 反编译后的 class bytecode 类似
+            3）getSimpleName 就是简单的类名，不包含包名，如果是内部类，则不包含外部类的名字，如果是匿名内部类则是空字符串
 
 */
 
