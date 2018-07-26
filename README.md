@@ -11,11 +11,11 @@
    * [线段树](https://blog.csdn.net/johnny901114/article/details/80643017)
    * [Trie](https://blog.csdn.net/johnny901114/article/details/80711441)
    * [并查集](https://blog.csdn.net/johnny901114/article/details/80721436)
-   * AVL
-   * 红黑树
+   * [AVL](https://blog.csdn.net/johnny901114/article/details/80740418)
+   * [红黑树](https://blog.csdn.net/johnny901114/article/details/81046088)
+   * 哈夫曼树
    * KD树
    * 哈希表
-   * 哈夫曼树
    * 堆
 
 ### 涉及的Java集合类
@@ -26,11 +26,11 @@
    * [Stack](https://blog.csdn.net/johnny901114/article/details/80373290)
    * [ArrayDeque](https://blog.csdn.net/johnny901114/article/details/80456833)
    * [PriorityQueue](https://blog.csdn.net/johnny901114/article/details/80550279)
+   * [TreeMap](https://blog.csdn.net/johnny901114/article/details/81046088)
+   * [TreeSet](https://blog.csdn.net/johnny901114/article/details/81046088)
    * HashMap
-   * TreeMap
    * LinkedHashMap
    * HashSet
-   * TreeSet
    * LinkedHashSet
 
 
